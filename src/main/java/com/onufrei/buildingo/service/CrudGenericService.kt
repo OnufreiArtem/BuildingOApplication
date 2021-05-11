@@ -1,4 +1,4 @@
-package com.onufrei.buildingo.service.employeeSpecification
+package com.onufrei.buildingo.service
 
 interface CrudGenericService<T> {
     fun findAll() : List<T>
