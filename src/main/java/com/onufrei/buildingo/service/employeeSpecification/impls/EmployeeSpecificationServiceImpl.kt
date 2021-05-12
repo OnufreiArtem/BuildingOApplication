@@ -3,10 +3,12 @@ package com.onufrei.buildingo.service.employeeSpecification.impls
 import com.onufrei.buildingo.model.EmployeeSpecification
 import com.onufrei.buildingo.repository.EmployeeSpecificationRepository
 import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSpecificationService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
-class EmployeeSpecificationServiceImpls(private val repo: EmployeeSpecificationRepository) : EmployeeSpecificationService {
+@Service
+class EmployeeSpecificationServiceImpl(private val repo: EmployeeSpecificationRepository) : EmployeeSpecificationService {
 
     override fun findAll() : List<EmployeeSpecification> {
         return repo.findAll()
@@ -22,7 +24,7 @@ class EmployeeSpecificationServiceImpls(private val repo: EmployeeSpecificationR
                     id = UUID.randomUUID().toString(),
                     createdAt = LocalDateTime.now()
             )
-            repo.save(spec);
+            repo.save(spec)
             return spec
         }
 
@@ -31,19 +33,19 @@ class EmployeeSpecificationServiceImpls(private val repo: EmployeeSpecificationR
 
     override fun update(e: EmployeeSpecification): EmployeeSpecification? {
         findById(e.id)?.let {
-            val spec = e.copy(
-                    modifiedAt = LocalDateTime.now()
-            )
-            repo.save(spec);
-            return spec;
+            val spec = e.apply {
+                modifiedAt = LocalDateTime.now()
+            }
+            repo.save(spec)
+            return spec
         } ?: return null
     }
 
     override fun delete(id: String): EmployeeSpecification? {
         findById(id)?.let {
             repo.delete(it)
-            return it;
-        } ?: return null;
+            return it
+        } ?: return null
 
     }
 }
