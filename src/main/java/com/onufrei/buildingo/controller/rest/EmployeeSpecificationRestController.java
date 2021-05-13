@@ -22,7 +22,7 @@ import java.util.List;
  * @since 11.05.2021
  */
 
-@RequestMapping("/employee-specs")
+@RequestMapping("api/v1/employee-specs")
 @RestController
 public class EmployeeSpecificationRestController {
 
