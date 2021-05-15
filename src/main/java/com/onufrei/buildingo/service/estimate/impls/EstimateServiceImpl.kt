@@ -3,9 +3,11 @@ package com.onufrei.buildingo.service.estimate.impls
 import com.onufrei.buildingo.model.Estimate
 import com.onufrei.buildingo.repository.EstimateRepository
 import com.onufrei.buildingo.service.estimate.interfaces.EstimateService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
+@Service
 class EstimateServiceImpl(private val repo: EstimateRepository) : EstimateService {
 
     override fun findAll(): List<Estimate> {

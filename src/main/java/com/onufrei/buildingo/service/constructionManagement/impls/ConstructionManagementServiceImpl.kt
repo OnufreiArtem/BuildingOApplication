@@ -3,9 +3,11 @@ package com.onufrei.buildingo.service.constructionManagement.impls
 import com.onufrei.buildingo.model.ConstructionManagement
 import com.onufrei.buildingo.repository.ConstructionManagementRepository
 import com.onufrei.buildingo.service.constructionManagement.interfaces.ConstructionManagementService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
+@Service
 class ConstructionManagementServiceImpl(private val repo: ConstructionManagementRepository)
     : ConstructionManagementService {
     override fun findAll(): List<ConstructionManagement> {

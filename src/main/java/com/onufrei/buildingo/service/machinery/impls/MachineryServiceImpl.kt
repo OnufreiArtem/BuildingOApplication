@@ -3,9 +3,11 @@ package com.onufrei.buildingo.service.machinery.impls
 import com.onufrei.buildingo.model.Machinery
 import com.onufrei.buildingo.repository.MachineryRepository
 import com.onufrei.buildingo.service.machinery.interfaces.MachineryService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
+@Service
 class MachineryServiceImpl(private val repo: MachineryRepository) : MachineryService {
 
     override fun findAll(): List<Machinery> {

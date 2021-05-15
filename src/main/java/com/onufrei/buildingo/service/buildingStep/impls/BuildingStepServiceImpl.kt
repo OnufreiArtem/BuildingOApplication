@@ -3,9 +3,11 @@ package com.onufrei.buildingo.service.buildingStep.impls
 import com.onufrei.buildingo.model.BuildingStep
 import com.onufrei.buildingo.repository.BuildingStepRepository
 import com.onufrei.buildingo.service.buildingStep.interfaces.BuildingStepService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
+@Service
 class BuildingStepServiceImpl(private val repo: BuildingStepRepository) : BuildingStepService {
     override fun findAll(): List<BuildingStep> {
         return repo.findAll()

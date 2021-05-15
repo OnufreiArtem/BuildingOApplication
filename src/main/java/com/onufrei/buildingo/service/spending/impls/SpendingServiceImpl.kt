@@ -3,9 +3,11 @@ package com.onufrei.buildingo.service.spending.impls
 import com.onufrei.buildingo.model.Spending
 import com.onufrei.buildingo.repository.SpendingRepository
 import com.onufrei.buildingo.service.spending.interfaces.SpendingService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
+@Service
 class SpendingServiceImpl(private val repo: SpendingRepository) : SpendingService {
     override fun findAll(): List<Spending> {
         return repo.findAll()

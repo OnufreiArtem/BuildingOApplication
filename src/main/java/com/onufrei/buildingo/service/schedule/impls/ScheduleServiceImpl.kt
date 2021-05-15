@@ -3,9 +3,11 @@ package com.onufrei.buildingo.service.schedule.impls
 import com.onufrei.buildingo.model.Schedule
 import com.onufrei.buildingo.repository.ScheduleRepository
 import com.onufrei.buildingo.service.schedule.interfaces.ScheduleService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
+@Service
 class ScheduleServiceImpl(private val repo: ScheduleRepository) : ScheduleService {
 
     override fun findAll(): List<Schedule> {

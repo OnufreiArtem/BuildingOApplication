@@ -3,9 +3,11 @@ package com.onufrei.buildingo.service.request.impls
 import com.onufrei.buildingo.model.Request
 import com.onufrei.buildingo.repository.RequestRepository
 import com.onufrei.buildingo.service.request.interfaces.RequestService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
+@Service
 class RequestServiceImpl(private val repo: RequestRepository) : RequestService {
 
     override fun findAll(): List<Request> {

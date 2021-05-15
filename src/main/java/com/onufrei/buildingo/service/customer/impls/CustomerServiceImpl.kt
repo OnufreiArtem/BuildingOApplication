@@ -3,6 +3,7 @@ package com.onufrei.buildingo.service.customer.impls
 import com.onufrei.buildingo.model.Customer
 import com.onufrei.buildingo.repository.CustomerRepository
 import com.onufrei.buildingo.service.customer.interfaces.CustomerService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
@@ -13,6 +14,7 @@ import java.util.*
  * @since 12.05.2021
  */
 
+@Service
 class CustomerServiceImpl(private val repo: CustomerRepository) : CustomerService{
     override fun findAll(): List<Customer> {
         return repo.findAll()
