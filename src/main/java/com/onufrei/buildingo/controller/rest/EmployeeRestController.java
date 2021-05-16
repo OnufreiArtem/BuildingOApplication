@@ -2,6 +2,8 @@ package com.onufrei.buildingo.controller.rest;
 
 import com.onufrei.buildingo.model.Employee;
 import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,28 +34,43 @@ public class EmployeeRestController {
 		this.service = service;
 	}
 
+	@ApiOperation(value = "Returns list of all employees")
 	@GetMapping("/")
-	private List<Employee> getAll() {
+	private List<Employee> getAllEmployees() {
 		return service.findAll();
 	}
 
+	@ApiOperation(value = "Adds new employee")
 	@PostMapping("/")
-	private Employee add(@RequestBody Employee spec) {
-		return service.add(spec);
+	private Employee addEmployee(
+			@ApiParam(name = "Employee", value = "The json of employee you want to add. "
+					+ "Id, createdAt and modifiedAt dates generate automatically")
+			@RequestBody Employee employee) {
+		return service.add(employee);
 	}
 
+	@ApiOperation(value = "Returns employee of specified id")
 	@GetMapping("/{id}")
-	private Employee getById(@PathVariable String id) {
+	private Employee getEmployeeById(
+			@ApiParam(name = "Employee id", value = "The id of employee you want to get")
+			@PathVariable String id) {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Updates specified employee by customer you pass")
 	@PutMapping("/")
-	private Employee update(@RequestBody Employee spec) {
-		return service.update(spec);
+	private Employee updateEmployee(
+			@ApiParam(name = "Employee", value = "The json of employee you want to update. "
+					+ "The id of employee you pass must correspond to employee's id you want to update")
+			@RequestBody Employee employee) {
+		return service.update(employee);
 	}
 
+	@ApiOperation(value = "Deletes the employee with id you specify")
 	@DeleteMapping("/{id}")
-	private Employee delete(@PathVariable String id) {
+	private Employee deleteEmployee(
+			@ApiParam(name = "Employee id", value = "The id of employee you want to delete")
+			@PathVariable String id) {
 		return service.delete(id);
 	}
 }

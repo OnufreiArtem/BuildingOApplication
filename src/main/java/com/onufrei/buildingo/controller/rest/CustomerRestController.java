@@ -2,6 +2,8 @@ package com.onufrei.buildingo.controller.rest;
 
 import com.onufrei.buildingo.model.Customer;
 import com.onufrei.buildingo.service.customer.interfaces.CustomerService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,28 +34,43 @@ public class CustomerRestController {
 		this.service = service;
 	}
 
+	@ApiOperation(value = "Returns list of all customers")
 	@GetMapping("/")
-	private List<Customer> getAll() {
+	private List<Customer> getAllCustomers() {
 		return service.findAll();
 	}
 
+	@ApiOperation(value = "Adds new customer")
 	@PostMapping("/")
-	private Customer add(@RequestBody Customer spec) {
-		return service.add(spec);
+	private Customer addCustomer(
+			@ApiParam(name = "Customer", value = "The json of customer you want to add. "
+					+ "Id, createdAt and modifiedAt dates generate automatically")
+			@RequestBody Customer customer) {
+		return service.add(customer);
 	}
 
+	@ApiOperation(value = "Returns customer of specified id")
 	@GetMapping("/{id}")
-	private Customer getById(@PathVariable String id) {
+	private Customer getCustomerById(
+			@ApiParam(name = "Customer id", value = "The id of customer you want to get")
+			@PathVariable String id) {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Updates specified customer by customer you pass")
 	@PutMapping("/")
-	private Customer update(@RequestBody Customer spec) {
-		return service.update(spec);
+	private Customer updateCustomer(
+			@ApiParam(name = "Customer", value = "The json of customer you want to update. "
+					+ "The id of customer you pass must correspond to customer's id you want to update")
+			@RequestBody Customer customer) {
+		return service.update(customer);
 	}
 
+	@ApiOperation(value = "Deletes the customer with id you specify")
 	@DeleteMapping("/{id}")
-	private Customer delete(@PathVariable String id) {
+	private Customer deleteCustomer(
+			@ApiParam(name = "Customer id", value = "The id of customer you want to delete")
+			@PathVariable String id) {
 		return service.delete(id);
 	}
 }

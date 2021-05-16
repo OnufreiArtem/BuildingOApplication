@@ -2,6 +2,8 @@ package com.onufrei.buildingo.controller.rest;
 
 import com.onufrei.buildingo.model.Estimate;
 import com.onufrei.buildingo.service.estimate.interfaces.EstimateService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,28 +34,43 @@ public class EstimateRestController {
 		this.service = service;
 	}
 
+	@ApiOperation(value = "Returns list of all estimates")
 	@GetMapping("/")
-	private List<Estimate> getAll() {
+	private List<Estimate> getAllEstimates() {
 		return service.findAll();
 	}
 
+	@ApiOperation(value = "Adds new estimate")
 	@PostMapping("/")
-	private Estimate add(@RequestBody Estimate spec) {
+	private Estimate addEstimate(
+			@ApiParam(name = "Estimate", value = "The json of estimate you want to add. "
+					+ "Id, createdAt and modifiedAt dates generate automatically")
+			@RequestBody Estimate spec) {
 		return service.add(spec);
 	}
 
+	@ApiOperation(value = "Returns estimate of specified id")
 	@GetMapping("/{id}")
-	private Estimate getById(@PathVariable String id) {
+	private Estimate getEstimateById(
+			@ApiParam(name = "Estimate id", value = "The id of estimate you want to get")
+			@PathVariable String id) {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Updates specified estimate by estimate you pass")
 	@PutMapping("/")
-	private Estimate update(@RequestBody Estimate spec) {
+	private Estimate updateEstimate(
+			@ApiParam(name = "Estimate", value = "The json of estimate you want to update. "
+					+ "The id of estimate you pass must correspond to estimate's id you want to update")
+			@RequestBody Estimate spec) {
 		return service.update(spec);
 	}
 
+	@ApiOperation(value = "Deletes the estimate with id you specify")
 	@DeleteMapping("/{id}")
-	private Estimate delete(@PathVariable String id) {
+	private Estimate deleteEstimate(
+			@ApiParam(name = "Estimate id", value = "The id of estimate you want to delete")
+			@PathVariable String id) {
 		return service.delete(id);
 	}
 }

@@ -2,6 +2,8 @@ package com.onufrei.buildingo.controller.rest;
 
 import com.onufrei.buildingo.model.EmployeeSpecification;
 import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSpecificationService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,28 +34,43 @@ public class EmployeeSpecificationRestController {
         this.service = service;
     }
 
+    @ApiOperation(value = "Returns list of all employee specifications")
     @GetMapping("/")
-    private List<EmployeeSpecification> getAll() {
+    private List<EmployeeSpecification> getAllEmployeeSpecification() {
         return service.findAll();
     }
 
+    @ApiOperation(value = "Adds new employee specification")
     @PostMapping("/")
-    private EmployeeSpecification add(@RequestBody EmployeeSpecification spec) {
-        return service.add(spec);
+    private EmployeeSpecification addEmployeeSpecification(
+            @ApiParam(name = "Employee specification", value = "The json of employee specification you want to add. "
+                    + "Id, createdAt and modifiedAt dates generate automatically")
+            @RequestBody EmployeeSpecification employeeSpecification) {
+        return service.add(employeeSpecification);
     }
 
+    @ApiOperation(value = "Returns employee specification of specified id")
     @GetMapping("/{id}")
-    private EmployeeSpecification getById(@PathVariable String id) {
+    private EmployeeSpecification getEmployeeSpecificationById(
+            @ApiParam(name = "Employee specification id", value = "The id of employee specification you want to get")
+            @PathVariable String id) {
         return service.findById(id);
     }
 
+    @ApiOperation(value = "Updates specified employee specification by customer you pass")
     @PutMapping("/")
-    private EmployeeSpecification update(@RequestBody EmployeeSpecification spec) {
-        return service.update(spec);
+    private EmployeeSpecification updateEmployeeSpecification(
+            @ApiParam(name = "Employee specification", value = "The json of employee specification you want to update. "
+                    + "The id of employee specification you pass must correspond to employee specification's id you want to update")
+            @RequestBody EmployeeSpecification employeeSpecification) {
+        return service.update(employeeSpecification);
     }
 
+    @ApiOperation(value = "Deletes the employee specification with id you specify")
     @DeleteMapping("/{id}")
-    private EmployeeSpecification delete(@PathVariable String id) {
+    private EmployeeSpecification deleteEmployeeSpecification(
+            @ApiParam(name = "Employee specification id", value = "The id of employee specification you want to delete")
+            @PathVariable String id) {
         return service.delete(id);
     }
 

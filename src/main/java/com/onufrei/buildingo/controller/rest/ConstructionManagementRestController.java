@@ -2,6 +2,8 @@ package com.onufrei.buildingo.controller.rest;
 
 import com.onufrei.buildingo.model.ConstructionManagement;
 import com.onufrei.buildingo.service.constructionManagement.interfaces.ConstructionManagementService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,28 +34,43 @@ public class ConstructionManagementRestController {
 		this.service = service;
 	}
 
+	@ApiOperation(value = "Returns list of all construction managements")
 	@GetMapping("/")
-	private List<ConstructionManagement> getAll() {
+	private List<ConstructionManagement> getAllConstructionManagements() {
 		return service.findAll();
 	}
 
+	@ApiOperation(value = "Adds new construction management")
 	@PostMapping("/")
-	private ConstructionManagement add(@RequestBody ConstructionManagement spec) {
+	private ConstructionManagement addConstructionManagement(
+			@ApiParam(name = "Construction management", value = "The json of construction management you want to add. "
+					+ "Id, createdAt and modifiedAt dates generate automatically")
+			@RequestBody ConstructionManagement spec) {
 		return service.add(spec);
 	}
 
+	@ApiOperation(value = "Returns construction management of specified id")
 	@GetMapping("/{id}")
-	private ConstructionManagement getById(@PathVariable String id) {
+	private ConstructionManagement getConstructionManagementById(
+			@ApiParam(name = "Construction management id", value = "The id of construction management you want to get")
+			@PathVariable String id) {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Updates specified construction management by construction management you pass")
 	@PutMapping("/")
-	private ConstructionManagement update(@RequestBody ConstructionManagement spec) {
+	private ConstructionManagement updateConstructionManagement(
+			@ApiParam(name = "Construction management", value = "The json of construction management you want to update. "
+					+ "The id of construction management you pass must correspond to construction management's id you want to update")
+			@RequestBody ConstructionManagement spec) {
 		return service.update(spec);
 	}
 
+	@ApiOperation(value = "Deletes the construction management with id you specify")
 	@DeleteMapping("/{id}")
-	private ConstructionManagement delete(@PathVariable String id) {
+	private ConstructionManagement deleteConstructionManagement(
+			@ApiParam(name = "Construction management id", value = "The id of construction management you want to delete")
+			@PathVariable String id) {
 		return service.delete(id);
 	}
 }

@@ -2,6 +2,8 @@ package com.onufrei.buildingo.controller.rest;
 
 import com.onufrei.buildingo.model.BuildingStep;
 import com.onufrei.buildingo.service.buildingStep.interfaces.BuildingStepService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,28 +34,43 @@ public class BuildingStepRestController {
 		this.service = service;
 	}
 
+	@ApiOperation(value = "Returns list of all building steps")
 	@GetMapping("/")
-	private List<BuildingStep> getAll() {
+	private List<BuildingStep> getAllBuildingSteps() {
 		return service.findAll();
 	}
 
+	@ApiOperation(value = "Adds new building step")
 	@PostMapping("/")
-	private BuildingStep add(@RequestBody BuildingStep spec) {
-		return service.add(spec);
+	private BuildingStep addBuildingStep(
+			@ApiParam(name = "Building Step", value = "The json of brigade specification you want to add. "
+					+ "Id, createdAt and modifiedAt dates generate automatically")
+			@RequestBody BuildingStep buildingStep) {
+		return service.add(buildingStep);
 	}
 
+	@ApiOperation(value = "Returns building step of specified id")
 	@GetMapping("/{id}")
-	private BuildingStep getById(@PathVariable String id) {
+	private BuildingStep getBuildingStepById(
+			@ApiParam(name = "Brigade Step id", value = "The id of building step you want to get")
+			@PathVariable String id) {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Updates specified building step by building step you pass")
 	@PutMapping("/")
-	private BuildingStep update(@RequestBody BuildingStep spec) {
-		return service.update(spec);
+	private BuildingStep updateBuildingStep(
+			@ApiParam(name = "Brigade Step", value = "The json of building step you want to update. "
+					+ "The id of building step you pass must correspond to building step's id you want to update")
+			@RequestBody BuildingStep buildingStep) {
+		return service.update(buildingStep);
 	}
 
+	@ApiOperation(value = "Deletes the building step with id you specify")
 	@DeleteMapping("/{id}")
-	private BuildingStep delete(@PathVariable String id) {
+	private BuildingStep deleteBuildingStep(
+			@ApiParam(name = "Building step id", value = "The id of building step you want to delete")
+			@PathVariable String id) {
 		return service.delete(id);
 	}
 }

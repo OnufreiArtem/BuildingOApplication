@@ -2,6 +2,8 @@ package com.onufrei.buildingo.controller.rest;
 
 import com.onufrei.buildingo.model.Building;
 import com.onufrei.buildingo.service.building.interfaces.BuildingService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,28 +34,44 @@ public class BuildingRestController {
 		this.service = service;
 	}
 
+
+	@ApiOperation(value = "Returns list of all buildings")
 	@GetMapping("/")
-	private List<Building> getAll() {
+	private List<Building> getAllBuildings() {
 		return service.findAll();
 	}
 
+	@ApiOperation(value = "Adds new building")
 	@PostMapping("/")
-	private Building add(@RequestBody Building spec) {
-		return service.add(spec);
+	private Building addBuilding(
+			@ApiParam(name = "Building", value = "The json of building you want to add. "
+					+ "Id, createdAt and modifiedAt dates generate automatically")
+			@RequestBody Building building) {
+		return service.add(building);
 	}
 
+	@ApiOperation(value = "Returns building of specified id")
 	@GetMapping("/{id}")
-	private Building getById(@PathVariable String id) {
+	private Building getBuildingById(
+			@ApiParam(name = "Building id", value = "The id of building you want to get")
+			@PathVariable String id) {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Updates specified building by building you pass")
 	@PutMapping("/")
-	private Building update(@RequestBody Building spec) {
-		return service.update(spec);
+	private Building updateBuilding(
+			@ApiParam(name = "Building", value = "The json of building you want to update. "
+					+ "The id of building you pass must correspond to building's id you want to update")
+			@RequestBody Building building) {
+		return service.update(building);
 	}
 
+	@ApiOperation(value = "Deletes the building with id you specify")
 	@DeleteMapping("/{id}")
-	private Building delete(@PathVariable String id) {
+	private Building deleteBuilding(
+			@ApiParam(name = "Building id", value = "The id of building you want to delete")
+			@PathVariable String id) {
 		return service.delete(id);
 	}
 }

@@ -2,6 +2,8 @@ package com.onufrei.buildingo.controller.rest;
 
 import com.onufrei.buildingo.model.Schedule;
 import com.onufrei.buildingo.service.schedule.interfaces.ScheduleService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,28 +34,43 @@ public class ScheduleRestController {
 		this.service = service;
 	}
 
+	@ApiOperation(value = "Returns list of all schedules")
 	@GetMapping("/")
-	private List<Schedule> getAll() {
+	private List<Schedule> getAllSchedules() {
 		return service.findAll();
 	}
 
+	@ApiOperation(value = "Adds new schedule")
 	@PostMapping("/")
-	private Schedule add(@RequestBody Schedule spec) {
-		return service.add(spec);
+	private Schedule addSchedule(
+			@ApiParam(name = "Schedule", value = "The json of schedule you want to add. "
+					+ "Id, createdAt and modifiedAt dates generate automatically")
+			@RequestBody Schedule schedule) {
+		return service.add(schedule);
 	}
 
+	@ApiOperation(value = "Returns schedule of specified id")
 	@GetMapping("/{id}")
-	private Schedule getById(@PathVariable String id) {
+	private Schedule getByIdSchedule(
+			@ApiParam(name = "Schedule id", value = "The id of schedule you want to get")
+			@PathVariable String id) {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Updates specified schedule by schedule you pass")
 	@PutMapping("/")
-	private Schedule update(@RequestBody Schedule spec) {
-		return service.update(spec);
+	private Schedule updateSchedule(
+			@ApiParam(name = "Schedule", value = "The json of schedule you want to update. "
+					+ "The id of schedule you pass must correspond to schedule's id you want to update")
+			@RequestBody Schedule schedule) {
+		return service.update(schedule);
 	}
 
+	@ApiOperation(value = "Deletes the schedule with id you specify")
 	@DeleteMapping("/{id}")
-	private Schedule delete(@PathVariable String id) {
+	private Schedule deleteSchedule(
+			@ApiParam(name = "Schedule id", value = "The id of schedule you want to delete")
+			@PathVariable String id) {
 		return service.delete(id);
 	}
 }
