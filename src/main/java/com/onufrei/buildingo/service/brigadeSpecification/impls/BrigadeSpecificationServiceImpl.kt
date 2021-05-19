@@ -9,6 +9,11 @@ import java.util.*
 
 @Service
 class BrigadeSpecificationServiceImpl(private val repo: BrigadeSpecificationRepository) : BrigadeSpecificationService {
+    override fun getIdNamePairs(): List<Pair<String, String>> {
+        val pairList = ArrayList<Pair<String, String>>()
+        findAll().forEach { pairList.add( Pair(it.id, "${it.name} - ${it.description}") ) }
+        return pairList
+    }
 
     override fun findAll(): List<BrigadeSpecification> {
         return repo.findAll()
