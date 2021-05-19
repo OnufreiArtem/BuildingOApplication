@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+	<nav th:fragment="navbar"  class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container-lg px-lg-5">
+			<a class="navbar-brand fs-4" href="#">Building Organization Admin Panel</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav" style="margin-left: auto; margin-right: 10%;">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/titlePage">Title page</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Models
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<li><a class="dropdown-item" href="/brigades">Brigade</a></li>
+							<li><a class="dropdown-item" href="/brigade-specs">Brigade Specification</a></li>
+							<li><a class="dropdown-item" href="/buildings">Building</a></li>
+							<li><a class="dropdown-item" href="/building-steps">BuildingStep</a></li>
+							<li><a class="dropdown-item" href="/c-management">Construction Management</a></li>
+							<li><a class="dropdown-item" href="/contracts">Contract</a></li>
+							<li><a class="dropdown-item" href="/customers">Customer</a></li>
+							<li><a class="dropdown-item" href="/employees">Employee</a></li>
+							<li><a class="dropdown-item" href="/employee-specs">Employee Specification</a></li>
+							<li><a class="dropdown-item" href="/estimates">Estimate</a></li>
+							<li><a class="dropdown-item" href="/machineries">Machinery</a></li>
+							<li><a class="dropdown-item" href="/machinery-storages">MachineryStorage</a></li>
+							<li><a class="dropdown-item" href="/plots">Plot</a></li>
+							<li><a class="dropdown-item" href="/requests">Request</a></li>
+							<li><a class="dropdown-item" href="/schedules">Schedule</a></li>
+							<li><a class="dropdown-item" href="/schedule-events">Schedule Event</a></li>
+							<li><a class="dropdown-item" href="/spendings">Spending</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</body>
+</html>

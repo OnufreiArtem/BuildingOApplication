@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Titulka</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		* {
+			box-sizing: border-box;
+			color: black;
+		}
+
+		body {
+			font-family: 'Times New Roman', Times, serif;
+			margin: 0;
+			background-color: #444444;
+		}
+
+		.page {
+			margin: 0 auto;
+			max-width: 900px;
+			background-color: white;
+			padding: 80px;
+			box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.397);
+		}
+
+		.proj-header-bold {
+			line-height: 1.4;
+			text-align: center;
+			font-weight: bold;
+			font-size: 1.2em;
+			margin-bottom: 8em;
+		}
+
+		.proj-title {
+			margin-bottom: 6em;
+			text-align: center;
+		}
+
+		.proj-name {
+			font-size: 2.2em;
+		}
+
+		.proj-type {
+			text-transform: uppercase;
+			font-size: 1.6em;
+		}
+
+		.proj-block-to-right {
+			width: 100%;
+			display: flex;
+			justify-content: flex-end;
+		}
+
+		.proj-owner {
+			line-height: 1.4;
+			font-size: 1.2em;
+		}
+
+		.proj-owner p {
+			margin: 0;
+		}
+
+		.proj-hint {
+			text-align: center;
+			font-size: 0.6em
+		}
+
+		.input-text {
+			text-decoration: underline;
+
+		}
+
+		.proj-block-to-left {
+			width: 100%;
+			display: flex;
+			justify-content: flex-start;
+			flex-direction: column;
+		}
+
+		.proj-owner-2 {
+			line-height: 1.1;
+			font-size: 1.2em;
+			margin-bottom: 6em;
+			width: 500px;
+		}
+
+		.proj-owner-2 p {
+			margin: 0 0 20px 0;
+		}
+
+		.proj-bold {
+			font-weight: bold;
+			font-size: 1.2em;
+		}
+
+		.proj-ending {
+			text-align: center;
+			font-size: 1.2em;
+
+		}
+
+	</style>
+</head>
+<body>
+<div class="page">
+	<header class="proj-header-bold">
+		<p>Міністерство освіти і науки України <br>
+			Чернівецький національний університет імені Юрія Федьковича <br>
+			Інститут фізико-технічних та комп’ютерних наук <br>
+			Кафедра програмного забезпечення комп’ютерних систем</p>
+	</header>
+
+	<div class="proj-title">
+		<h1 class="proj-name">Інформаційна система для Будівельної організації</h1>
+		<h2 class="proj-type">Курсова робота</h2>
+	</div>
+
+	<div class="proj-block-to-right">
+		<div class="proj-owner">
+			<p>Студента 2 курсу групи 243 <br>спеціальності</p>
+			<p class="input-text">121 - Інженерія програмного забезпечення</p>
+			<p class="proj-hint">(шифр - назва спеціальності)</p>
+			<br>
+			<p class="input-text" style="text-align: center;">Онуфрей Артем Віталійович</p>
+			<p class="proj-hint">(прізвище, ім'я, по-батькові студента)</p>
+			<br>
+			<p>Кeрівник <span class="input-text">Прохоров Г. В.</span></p>
+			<p class="proj-hint"><span>(підпис)</span> <span>(прізвище та ініціали)</span></p>
+		</div>
+	</div>
+
+	<div class="proj-block-to-left">
+		<div class="proj-owner-2">
+			<p>Нормокотроллер______________________</p>
+			<p class="proj-hint">(підпис) (ініціали)</p>
+			<p class="proj-bold">До захисту допущено:</p>
+			<p class="proj-bold">Протокол засідання кафедри №___</p>
+			<p>від "___" _________2020 р.</p>
+			<p>зав. кафедри_________проф. Остапов С. Е.</p>
+		</div>
+	</div>
+
+	<p class="proj-ending">Чернівці - 2020</p>
+</div>
+
+</body>
+</html>

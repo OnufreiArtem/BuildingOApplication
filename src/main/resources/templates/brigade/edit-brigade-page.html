@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+
+	<title>Building Organization | Edit brigade</title>
+</head>
+<body>
+<div th:insert="base/navbar :: navbar"></div>
+
+<div class="d-flex justify-content-center align-items-center">
+
+	<form class="border shadow rounded p-5 mt-5" th:action="${'/brigades/edit/' + brigade.id}" th:object="${brigade}" method="post">
+		<div class="text-center">
+			<p class="fs-3 mb-5">Edit Brigade:</p>
+		</div>
+		<div class="mb-3 row">
+			<label for="id_field" class="col-sm-2 col-form-label">Id:</label>
+			<input type="text" class="form-control" id="id_field" th:value="${brigade.id}" readonly>
+		</div>
+		<div class="mb-3 row">
+			<label for="brigade_name" class="form-label">Name:</label>
+			<input id="brigade_name" class="form-control" required type="text" th:field="*{name}" th:value="${brigade.name}"/>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="brigade_description" class="form-label">Description:</label>
+			<input id="brigade_description" class="form-control" type="text" th:field="*{description}" th:value="${brigade.description}"/>
+		</div>
+		<div class="mb-3 row">
+			<label for="brigade_spec" class="form-label">Specification:</label>
+			<select id="brigade_spec" class="form-control" name="brigade_spec_id">
+				<option th:selected="${brigade.specification == null}" value="non">Not Specified</option>
+				<option th:each="spec : ${brigade_specs}" th:value="${spec.first}" th:text="${spec.second}"
+						th:selected="${brigade.specification?.id == spec.first}"></option>
+			</select>
+		</div>
+		<div class="mb-3 row">
+			<label for="chief" class="form-label">Chief:</label>
+			<select id="chief" class="form-control" name="employee_id">
+				<option th:selected="${brigade.chief == null}" value="non">Not Specified</option>
+				<option th:each="empl : ${employees}" th:value="${empl.first}" th:text="${empl.second}"
+						th:selected="${brigade.chief?.id == empl.first}"></option>
+			</select>
+		</div>
+		<div class="mb-3 row">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" th:field="*{isActive}"
+					   th:value="${brigade.isActive == null ? false : brigade.isActive}" id="flexCheckChecked">
+				<label class="form-check-label" for="flexCheckChecked">
+					Active
+				</label>
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<a class="btn btn-outline-secondary col-5" href="/brigades">Cancel</a>
+			<div class="col-2"></div>
+			<input type="submit" class="btn btn-primary col-5" value="Save Changes">
+		</div>
+	</form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
+
+</body>
+</html>

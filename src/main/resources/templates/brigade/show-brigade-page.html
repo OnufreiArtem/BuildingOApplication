@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+
+	<title>Building Organization | Show brigade</title>
+</head>
+<body>
+<div th:insert="base/navbar :: navbar"></div>
+
+<div class="d-flex justify-content-center align-items-center">
+
+	<form class="border shadow rounded p-5 mt-5" th:action="${'/brigades/edit/' + brigade.id}" th:object="${brigade}" method="post">
+		<div class="text-center">
+			<p class="fs-3 mb-5">Show Brigade:</p>
+		</div>
+		<div class="mb-3 row">
+			<label for="id_field" class="col-sm-2 col-form-label">Id:</label>
+			<input type="text" class="form-control" id="id_field" th:value="${brigade.id}" readonly>
+		</div>
+		<div class="mb-3 row">
+			<label for="brigade_name" class="form-label">Name:</label>
+			<input id="brigade_name" class="form-control" required type="text" th:field="*{name}" th:value="${brigade.name}" readonly/>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="brigade_description" class="form-label">Description:</label>
+			<input id="brigade_description" class="form-control" type="text" th:field="*{description}" th:value="${brigade.description}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="brigade_spec" class="form-label">Specification:</label>
+			<input type="text" class="form-control" id="brigade_spec"
+				   th:value="${brigade.specification == null ? 'Not Specified' : brigade.specification.name}" readonly>
+		</div>
+		<div class="mb-3 row">
+			<label for="chief" class="form-label">Chief:</label>
+			<input type="text" class="form-control" id="chief"
+				   th:value="${brigade.chief == null ? 'Not Specified' : brigade.chief.name + ' ' + brigade.chief.surname}" readonly>
+		</div>
+		<div class="mb-3 row">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" th:field="*{isActive}"
+					   th:value="${brigade.isActive == null ? false : brigade.isActive}" id="flexCheckChecked" readonly>
+				<label class="form-check-label" for="flexCheckChecked">
+					Active
+				</label>
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="brigade_created_at" class="form-label">Created at:</label>
+			<input id="brigade_created_at" class="form-control" type="text" th:field="*{createdAt}" th:value="${brigade.createdAt}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="brigade_modified_at" class="form-label">Modified at:</label>
+			<input id="brigade_modified_at" class="form-control" type="text" th:field="*{modifiedAt}" th:value="${brigade.modifiedAt}" readonly/>
+		</div>
+
+		<div class="mb-3 row">
+			<a class="btn btn-outline-secondary col-5" href="/brigades">Exit</a>
+			<div class="col-7"></div>
+		</div>
+	</form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
+
+</body>
+</html>
