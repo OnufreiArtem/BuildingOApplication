@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
@@ -22,10 +23,13 @@ data class Contract(
         @ApiModelProperty(notes="The plot, where the work will be done.")
         var plot: Plot,
         @ApiModelProperty(notes="The date when contract was signed.")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         var signedDate: LocalDate,
         @ApiModelProperty(notes="The date when the order must launch.")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         var projectStartDate: LocalDate,
         @ApiModelProperty(notes="The date when order must be finished.")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         var projectFinishedDate: LocalDate,
         @ApiModelProperty(notes="Shows if the order is implemented.")
         var isFinished: Boolean = false,
