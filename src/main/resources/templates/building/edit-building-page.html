@@ -20,7 +20,8 @@
 			<label for="building_plot" class="form-label">Plot:</label>
 			<select id="building_plot" class="form-control" name="building_plot">
 				<option value="non">Not Specified</option>
-				<option th:each="plot : ${plots}" th:value="${plot.first}" th:text="${plot.second}"></option>
+				<option th:each="plot : ${plots}" th:value="${plot.first}" th:text="${plot.second}"
+						th:selected="${building.plot?.id == plot.first}"></option>
 			</select>
 		</div>
 		<div class="mb-3 row">
@@ -31,7 +32,8 @@
 			<label for="chief" class="form-label">Chief:</label>
 			<select id="chief" class="form-control" name="employee_id">
 				<option value="non">Not Specified</option>
-				<option th:each="empl : ${employees}" th:value="${empl.first}" th:text="${empl.second}"></option>
+				<option th:each="empl : ${employees}" th:value="${empl.first}" th:text="${empl.second}"
+						th:selected="${building.chief?.id == empl.first}"></option>
 			</select>
 		</div>
 		<div class="mb-3 row">
