@@ -11,14 +11,14 @@ import java.util.*
 data class Plot(
         @ApiModelProperty(notes="The id of the plot in UUID format.")
         @Id
-        val id: String = UUID.randomUUID().toString(),
+        var id: String = UUID.randomUUID().toString(),
         @ApiModelProperty(notes="The address of the plot.")
-        var address: String,
+        var address: String = "",
         @DBRef
         @ApiModelProperty(notes="The chief of the plot.")
-        var chief: Employee,
+        var chief: Employee?,
         @ApiModelProperty(notes="The date and time when object was created.")
-        val createdAt: LocalDateTime = LocalDateTime.now(),
+        var createdAt: LocalDateTime = LocalDateTime.now(),
         @ApiModelProperty(notes="The date and time when object was lastly modified.")
         var modifiedAt: LocalDateTime = LocalDateTime.now()
 )
