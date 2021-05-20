@@ -42,6 +42,16 @@
 			<label for="management_address" class="form-label">Address:</label>
 			<input id="management_address" class="form-control" type="text" th:field="*{address}" th:value="${management.address}" readonly/>
 		</div>
+
+		<div class="mb-3 row">
+			<label for="management_created_at" class="form-label">Created at:</label>
+			<input id="management_created_at" class="form-control" type="text" th:field="*{createdAt}" th:value="${management.createdAt}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="management_modified_at" class="form-label">Modified at:</label>
+			<input id="management_modified_at" class="form-control" type="text" th:field="*{modifiedAt}" th:value="${management.modifiedAt}" readonly/>
+		</div>
+		
 		<div class="mb-3 row">
 			<a class="btn btn-outline-secondary col-5" href="/managements">Exit</a>
 			<div class="col-7"></div>
