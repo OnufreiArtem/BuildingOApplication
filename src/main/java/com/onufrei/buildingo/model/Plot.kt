@@ -2,6 +2,7 @@ package com.onufrei.buildingo.model
 
 import io.swagger.annotations.ApiModelProperty
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 import java.util.*
@@ -13,6 +14,7 @@ data class Plot(
         val id: String = UUID.randomUUID().toString(),
         @ApiModelProperty(notes="The address of the plot.")
         var address: String,
+        @DBRef
         @ApiModelProperty(notes="The chief of the plot.")
         var chief: Employee,
         @ApiModelProperty(notes="The date and time when object was created.")

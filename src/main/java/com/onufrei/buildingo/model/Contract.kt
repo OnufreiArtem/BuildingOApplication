@@ -12,7 +12,7 @@ import java.util.*
 data class Contract(
         @ApiModelProperty(notes="The id of the contract in UUID format.")
         @Id
-        val id: String = UUID.randomUUID().toString(),
+        var id: String = UUID.randomUUID().toString(),
         @ApiModelProperty(notes="The customer of the project.")
         var customer: Customer,
         @ApiModelProperty(notes="The construction management that implements the order.")
@@ -32,7 +32,7 @@ data class Contract(
         @ApiModelProperty(notes="Shows if the order is failed.")
         var failed: Boolean = false,
         @ApiModelProperty(notes="The date and time when object was created.")
-        val createdAt: LocalDateTime = LocalDateTime.now(),
+        var createdAt: LocalDateTime = LocalDateTime.now(),
         @ApiModelProperty(notes="The date and time when object was lastly modified.")
         var modifiedAt: LocalDateTime = LocalDateTime.now()
 )

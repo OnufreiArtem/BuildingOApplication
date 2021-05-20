@@ -10,13 +10,13 @@ import java.util.*
 data class BuildingStep(
         @ApiModelProperty(notes="The id of the building step in UUID format.")
         @Id
-        val id: String = UUID.randomUUID().toString(),
+        var id: String = UUID.randomUUID().toString(),
         @ApiModelProperty(notes="The name of the building step.")
         var name: String,
         @ApiModelProperty(notes="The description of the building step.")
         var description: String,
         @ApiModelProperty(notes="The date and time when object was created.")
-        val createdAt: LocalDateTime = LocalDateTime.now(),
+        var createdAt: LocalDateTime = LocalDateTime.now(),
         @ApiModelProperty(notes="The date and time when object was lastly modified.")
         var modifiedAt: LocalDateTime = LocalDateTime.now()
 )
