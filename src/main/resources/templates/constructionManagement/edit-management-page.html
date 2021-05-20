@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+
+	<title>Building Organization | Edit Construction Management</title>
+</head>
+<body>
+<div th:insert="base/navbar :: navbar"></div>
+
+<div class="d-flex justify-content-center align-items-center">
+
+	<form class="border shadow rounded p-5 mt-5" th:action="${'/managements/edit/' + management.id}"  th:object="${management}" method="post">
+		<div class="text-center">
+			<p class="fs-3 mb-5">Edit Construction Management:</p>
+		</div>
+		<div class="mb-3 row">
+			<label for="id_field" class="col-sm-2 col-form-label">Id:</label>
+			<input type="text" class="form-control" id="id_field" th:value="${management.id}" readonly>
+		</div>
+		<div class="mb-3 row">
+			<label for="management_name" class="form-label">Name:</label>
+			<input id="management_name" class="form-control" required type="text" th:field="*{name}" th:value="${management.name}"/>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="management_description" class="form-label">Description:</label>
+			<input id="management_description" class="form-control" type="text" th:field="*{description}" th:value="${management.description}"/>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="chief" class="form-label">Chief:</label>
+			<select id="chief" class="form-control" name="employee_id">
+				<option value="non">Not Specified</option>
+				<option th:each="empl : ${employees}" th:value="${empl.first}" th:text="${empl.second}"></option>
+			</select>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="management_address" class="form-label">Address:</label>
+			<input id="management_address" class="form-control" type="text" th:field="*{address}" th:value="${management.address}"/>
+		</div>
+
+		<div class="mb-3 row">
+			<a class="btn btn-outline-secondary col-5" href="/managements">Cancel</a>
+			<div class="col-2"></div>
+			<input type="submit" class="btn btn-primary col-5" value="Save Changes">
+		</div>
+	</form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
+
+</body>
+</html>

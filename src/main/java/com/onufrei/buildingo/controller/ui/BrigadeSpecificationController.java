@@ -74,7 +74,7 @@ public class BrigadeSpecificationController {
 
 	@PostMapping("/edit/{id}")
 	private String updateBrigadeSpec(Model model, @ModelAttribute BrigadeSpecification spec, @PathVariable String id) {
-
+		spec.setId(id);
 		brigadeSpecificationService.update(spec);
 		return "redirect:/brigade-specs";
 	}

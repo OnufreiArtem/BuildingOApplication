@@ -73,7 +73,7 @@ public class BuildingStepController {
 
 	@PostMapping("/edit/{id}")
 	private String updateBuildingStep(Model model, @ModelAttribute BuildingStep step, @PathVariable String id) {
-
+		step.setId(id);
 		service.update(step);
 		return "redirect:/building-steps";
 	}

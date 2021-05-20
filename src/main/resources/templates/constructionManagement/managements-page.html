@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
-	<title>Building Organization | Building Steps List</title>
+	<title>Building Organization | Construction Management List</title>
 </head>
 
 <body>
@@ -15,8 +15,8 @@
 
 <div class="container-lg">
 	<div class="mx-lg-5 mt-5 d-flex justify-content-between align-items-center">
-		<p class="fs-2 fw-bold">List of Building Steps: </p>
-		<a href="/building-steps/add" class="btn btn-primary d-inline-block">Add step</a>
+		<p class="fs-2 fw-bold">List of Construction Management: </p>
+		<a href="/managements/add" class="btn btn-primary d-inline-block">Add management</a>
 	</div>
 
 	<div class="overflow-auto mt-5 px-lg-5">
@@ -27,26 +27,28 @@
 				<th scope="col" class="text-capitalize">Id</th>
 				<th scope="col" class="text-capitalize">name</th>
 				<th scope="col" class="text-capitalize">description</th>
+				<th scope="col" class="text-capitalize">chief</th>
+				<th scope="col" class="text-capitalize">address</th>
 			</tr>
 			</thead>
 			<tbody>
-			<tr th:each="step : ${steps}">
+			<tr th:each="management : ${managements}">
 				<th>
 					<div class="d-flex flex-row">
-						<a th:href="${'/building-steps/show/' + step.id}" class="btn btn-info" style="color: white">
+						<a th:href="${'/managements/show/' + management.id}" class="btn btn-info" style="color: white">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
 								<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
 								<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
 							</svg>
 						</a>
-						<a th:href="${'/building-steps/edit/' + step.id}" class="btn btn-warning mx-1" style="color: white">
+						<a th:href="${'/managements/edit/' + management.id}" class="btn btn-warning mx-1" style="color: white">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 								 class="bi bi-pencil-fill" viewBox="0 0 16 16">
 								<path
 										d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
 							</svg>
 						</a>
-						<form th:action="${'/building-steps/delete/' + step.id}" method="post">
+						<form th:action="${'/managements/delete/' + management.id}" method="post">
 							<button type="submit" class="btn btn-danger mx-1" style="color: white">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 									 class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -57,9 +59,11 @@
 						</form>
 					</div>
 				</th>
-				<th scope="row" th:text="${step.id}"></th>
-				<td th:text="${step.name}"></td>
-				<td th:text="${step.description}"></td>
+				<th scope="row" th:text="${management.id}"></th>
+				<td th:text="${management.name}"></td>
+				<td th:text="${management.description}"></td>
+				<td th:text="${management.chief == null ? 'Not specified' : management.chief.name + ' ' + management.chief.surname}"></td>
+				<td th:text="${management.address}"></td>
 			</tbody>
 		</table>
 	</div>

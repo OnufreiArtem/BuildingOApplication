@@ -12,7 +12,7 @@
 
 <div class="d-flex justify-content-center align-items-center">
 
-	<form class="border shadow rounded p-5 mt-5" th:action="${'/building-steps/edit/' + step.id}" th:object="${step}" method="post">
+	<form class="border shadow rounded p-5 mt-5" th:object="${step}">
 		<div class="text-center">
 			<p class="fs-3 mb-5">Show building step:</p>
 		</div>

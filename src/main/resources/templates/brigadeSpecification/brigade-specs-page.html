@@ -30,7 +30,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr data-bs-toggle="modal" data-bs-target="#viewModal" th:each="spec : ${specs}">
+			<tr th:each="spec : ${specs}">
 				<th>
 					<div class="d-flex flex-row">
 						<a th:href="${'/brigade-specs/show/' + spec.id}" class="btn btn-info" style="color: white">
