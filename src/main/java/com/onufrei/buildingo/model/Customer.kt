@@ -20,7 +20,7 @@ data class Customer(
         @ApiModelProperty(notes="The surname of the person to communicate with.")
         var contactSurname: String = "",
         @ApiModelProperty(notes="The phone number of the person to communicate with.")
-        var contactPhoneNumber: String?,
+        var contactPhoneNumber: String = "",
         @ApiModelProperty(notes="The e-mail of the person to communicate with.")
         var contactEMail: String = "",
         @ApiModelProperty(notes="The date and time when object was created.")
