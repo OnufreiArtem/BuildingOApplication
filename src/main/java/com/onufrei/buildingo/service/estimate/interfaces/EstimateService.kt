@@ -11,4 +11,5 @@ import com.onufrei.buildingo.service.CrudGenericService
  */
 
 interface EstimateService : CrudGenericService<Estimate> {
+    fun getMainInfo() : List<Pair<String, String>>
 }
