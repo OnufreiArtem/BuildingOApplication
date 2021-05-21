@@ -10,7 +10,7 @@ import java.util.*
 data class Machinery(
         @ApiModelProperty(notes="The id of the machinery in UUID format.")
         @Id
-        val id: String = UUID.randomUUID().toString(),
+        var id: String = UUID.randomUUID().toString(),
         @ApiModelProperty(notes="The model of the machinery.")
         var model: String,
         @ApiModelProperty(notes="The machinery number.")
@@ -22,13 +22,13 @@ data class Machinery(
         @ApiModelProperty(notes="The year when the machinery was crafted.")
         var year: Int,
         @ApiModelProperty(notes="The storage where the machinery is situated.")
-        var machineryStorage: MachineryStorage,
+        var machineryStorage: MachineryStorage?,
         @ApiModelProperty(notes="Identifies if machinery is in usage now.")
         var inUsage: Boolean = false,
         @ApiModelProperty(notes="Identifies if machinery can be used.")
-        var isActive: Boolean = true,
+        var active: Boolean = true,
         @ApiModelProperty(notes="The date and time when object was created.")
-        val createdAt: LocalDateTime = LocalDateTime.now(),
+        var createdAt: LocalDateTime = LocalDateTime.now(),
         @ApiModelProperty(notes="The date and time when object was lastly modified.")
         var modifiedAt: LocalDateTime = LocalDateTime.now()
 )
