@@ -65,7 +65,7 @@
 				<td th:text="${brigade.description}"></td>
 				<td th:text="${brigade.chief != null} ? ${brigade.chief.name} + ' ' + ${brigade.chief.surname} : 'Not specified'"></td>
 				<td th:text="${brigade.specification != null} ? ${brigade.specification.name} : 'Not specified'"></td>
-				<td th:text="${brigade.isActive != null && brigade.isActive ? 'Active' : 'Not Active'}"></td>
+				<td th:text="${brigade.active != null && brigade.active ? 'Active' : 'Not Active'}"></td>
 			</tr>
 			</tbody>
 		</table>

@@ -22,7 +22,7 @@ data class Brigade(
         @DBRef
         var specification: BrigadeSpecification?,
         @ApiModelProperty(notes = "The state of the brigade. If isActive is true - the brigade is able do their work, otherwise - brigade is not able.")
-        var isActive: Boolean?,
+        var active: Boolean = false,
         @ApiModelProperty(notes = "The date and time when object was created.")
         val createdAt: LocalDateTime? = LocalDateTime.now(),
         @ApiModelProperty(notes = "The date and time when object was lastly modified.")

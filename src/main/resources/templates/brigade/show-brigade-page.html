@@ -40,13 +40,8 @@
 				   th:value="${brigade.chief == null ? 'Not Specified' : brigade.chief.name + ' ' + brigade.chief.surname}" readonly>
 		</div>
 		<div class="mb-3 row">
-			<div class="form-check">
-				<input class="form-check-input" type="checkbox" th:field="*{isActive}"
-					   th:value="${brigade.isActive == null ? false : brigade.isActive}" id="flexCheckChecked" readonly>
-				<label class="form-check-label" for="flexCheckChecked">
-					Active
-				</label>
-			</div>
+			<label for="brigade_active" class="form-label">Active:</label>
+			<input id="brigade_active" class="form-control" type="text" th:value="${brigade.active ? 'Yes' : 'No'}" readonly/>
 		</div>
 
 		<div class="mb-3 row">
@@ -59,7 +54,7 @@
 		</div>
 
 		<div class="mb-3 row">
-			<a class="btn btn-outline-secondary col" href="/brigades">Exit</a>
+			<a class="btn btn-outline-secondary col" href="/brigades">Back to brigade list</a>
 		</div>
 	</form>
 </div>

@@ -75,7 +75,7 @@ public class BrigadeController {
 		nBrigade.setDescription(brg.getDescription());
 		nBrigade.setChief(employeeService.findById(employeeId));
 		nBrigade.setSpecification(brigadeSpecificationService.findById(brigadeSpecId));
-		nBrigade.setActive(brg.isActive());
+		nBrigade.setActive(brg.getActive());
 
 		brigadeService.add(nBrigade);
 
@@ -91,7 +91,7 @@ public class BrigadeController {
 				brigade.getDescription(),
 				employeeService.findById(employeeId),
 				brigadeSpecificationService.findById(brigadeSpecId),
-				brigade.isActive(),
+				brigade.getActive(),
 				brigade.getCreatedAt(),
 				brigade.getModifiedAt()
 		);
