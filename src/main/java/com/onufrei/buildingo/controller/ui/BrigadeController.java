@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents object of BrigadeController
  *
@@ -51,7 +53,7 @@ public class BrigadeController {
 
 	@GetMapping("/add")
 	private String showAddBrigade(Model model) {
-		model.addAttribute("brigade", new Brigade());
+		model.addAttribute("brigade", new Brigade("", "", "", null, null, false, LocalDateTime.now(), LocalDateTime.now()));
 		model.addAttribute("brigade_specs", brigadeSpecificationService.getIdNamePairs());
 		model.addAttribute("employees", employeeService.getIdNamePairs());
 
@@ -68,16 +70,12 @@ public class BrigadeController {
 	}
 
 	@PostMapping("/add")
-	private String addBrigade(Model model, @ModelAttribute Brigade brg, @RequestParam("brigade_spec_id") String brigadeSpecId,
+	private String addBrigade(Model model, @ModelAttribute Brigade brigade, @RequestParam("brigade_spec_id") String brigadeSpecId,
 			@RequestParam("employee_id") String employeeId ) {
-		Brigade nBrigade = new Brigade();
-		nBrigade.setName(brg.getName());
-		nBrigade.setDescription(brg.getDescription());
-		nBrigade.setChief(employeeService.findById(employeeId));
-		nBrigade.setSpecification(brigadeSpecificationService.findById(brigadeSpecId));
-		nBrigade.setActive(brg.getActive());
+		brigade.setChief(employeeService.findById(employeeId));
+		brigade.setSpecification(brigadeSpecificationService.findById(brigadeSpecId));
 
-		brigadeService.add(nBrigade);
+		brigadeService.add(brigade);
 
 		return "redirect:/brigades";
 	}
@@ -85,17 +83,10 @@ public class BrigadeController {
 	@PostMapping("/edit/{id}")
 	private String updateBrigade(Model model, @ModelAttribute Brigade brigade, @RequestParam("brigade_spec_id") String brigadeSpecId,
 			@RequestParam("employee_id") String employeeId, @PathVariable String id) {
-		Brigade nBrigade = new Brigade(
-				id,
-				brigade.getName(),
-				brigade.getDescription(),
-				employeeService.findById(employeeId),
-				brigadeSpecificationService.findById(brigadeSpecId),
-				brigade.getActive(),
-				brigade.getCreatedAt(),
-				brigade.getModifiedAt()
-		);
-		brigadeService.update(nBrigade);
+		brigade.setId(id);
+		brigade.setChief(employeeService.findById(employeeId));
+		brigade.setSpecification(brigadeSpecificationService.findById(brigadeSpecId));
+		brigadeService.update(brigade);
 		return "redirect:/brigades";
 	}
 

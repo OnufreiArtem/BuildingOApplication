@@ -65,15 +65,15 @@
 					</div>
 				</th>
 				<th scope="row" th:text="${contract.id}"></th>
-				<th scope="row" th:text="${contract.customer != null ? contract.customer.name : 'Not Specified' }"></th>
-				<th scope="row" th:text="${contract.constructionManagement != null ? contract.constructionManagement.address : 'Not Specified' }"></th>
-				<th scope="row" th:text="${contract.price}"></th>
-				<th scope="row" th:text="${contract.plot != null ? contract.plot.address : 'Not Specified' }"></th>
-				<th scope="row" th:text="${contract.signedDate}"></th>
-				<th scope="row" th:text="${contract.projectStartDate}"></th>
-				<th scope="row" th:text="${contract.projectFinishedDate}"></th>
-				<th scope="row" th:text="${contract.finished}"></th>
-				<th scope="row" th:text="${contract.failed}"></th>
+				<td scope="row" th:text="${contract.customer != null ? contract.customer.name : 'Not Specified' }"></td>
+				<td scope="row" th:text="${contract.constructionManagement != null ? contract.constructionManagement.address : 'Not Specified' }"></td>
+				<td scope="row" th:text="${contract.price}"></td>
+				<td scope="row" th:text="${contract.plot != null ? contract.plot.address : 'Not Specified' }"></td>
+				<td scope="row" th:text="${contract.signedDate}"></td>
+				<td scope="row" th:text="${contract.projectStartDate}"></td>
+				<td scope="row" th:text="${contract.projectFinishedDate}"></td>
+				<td scope="row" th:text="${contract.finished}"></td>
+				<td scope="row" th:text="${contract.failed}"></td>
 			</tbody>
 		</table>
 	</div>

@@ -58,7 +58,7 @@
 					</div>
 				</th>
 				<th scope="row" th:text="${schedule.id}"></th>
-				<th scope="row" th:text="${schedule.targetBuilding == null ? 'Not Specified' : schedule.targetBuilding?.plot?.address + ' - ' + schedule.targetBuilding?.plan}"></th>
+				<td scope="row" th:text="${schedule.targetBuilding == null ? 'Not Specified' : schedule.targetBuilding?.plot?.address + ' - ' + schedule.targetBuilding?.plan}"></td>
 			</tbody>
 		</table>
 	</div>
