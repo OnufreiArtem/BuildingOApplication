@@ -17,6 +17,7 @@ data class Brigade(
         @ApiModelProperty(notes = "The description of the brigade.")
         var description: String = "",
         @ApiModelProperty(notes = "The chief of the brigade.")
+        @DBRef
         var chief: Employee?,
         @ApiModelProperty(notes = "The specification of brigade.")
         @DBRef
