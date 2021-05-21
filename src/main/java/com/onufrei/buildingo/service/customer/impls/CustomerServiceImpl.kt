@@ -16,6 +16,10 @@ import java.util.*
 
 @Service
 class CustomerServiceImpl(private val repo: CustomerRepository) : CustomerService{
+    override fun getCustomerContactText(): List<Pair<String, String>> {
+        return repo.findAll().map { Pair(it.id, "${it.name} - ${it.contactName} ${it.contactSurname}") }
+    }
+
     override fun findAll(): List<Customer> {
         return repo.findAll()
     }

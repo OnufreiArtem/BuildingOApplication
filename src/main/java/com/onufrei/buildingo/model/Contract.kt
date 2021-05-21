@@ -15,24 +15,24 @@ data class Contract(
         @Id
         var id: String = UUID.randomUUID().toString(),
         @ApiModelProperty(notes="The customer of the project.")
-        var customer: Customer,
+        var customer: Customer?,
         @ApiModelProperty(notes="The construction management that implements the order.")
-        var constructionManagement: ConstructionManagement,
+        var constructionManagement: ConstructionManagement?,
         @ApiModelProperty(notes="The price of the order.")
         var price: Int,
         @ApiModelProperty(notes="The plot, where the work will be done.")
-        var plot: Plot,
+        var plot: Plot?,
         @ApiModelProperty(notes="The date when contract was signed.")
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        var signedDate: LocalDate,
+        @field:DateTimeFormat(pattern = "yyyy-MM-dd")
+        var signedDate: LocalDate? = null,
         @ApiModelProperty(notes="The date when the order must launch.")
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        var projectStartDate: LocalDate,
+        @field:DateTimeFormat(pattern = "yyyy-MM-dd")
+        var projectStartDate: LocalDate? = null,
         @ApiModelProperty(notes="The date when order must be finished.")
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        var projectFinishedDate: LocalDate,
+        @field:DateTimeFormat(pattern = "yyyy-MM-dd")
+        var projectFinishedDate: LocalDate? = null,
         @ApiModelProperty(notes="Shows if the order is implemented.")
-        var isFinished: Boolean = false,
+        var finished: Boolean = false,
         @ApiModelProperty(notes="Shows if the order is failed.")
         var failed: Boolean = false,
         @ApiModelProperty(notes="The date and time when object was created.")

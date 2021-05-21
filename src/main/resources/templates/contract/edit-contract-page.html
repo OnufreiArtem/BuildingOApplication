@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+
+	<title>Building Organization | Edit Contract</title>
+</head>
+<body>
+<div th:insert="base/navbar :: navbar"></div>
+
+<div class="d-flex justify-content-center align-items-center">
+
+	<form class="border shadow rounded p-5 mt-5" th:action="${'/contracts/edit/' + contract.id}" th:object="${contract}" method="post">
+		<div class="text-center">
+			<p class="fs-3 mb-5">Edit Plot:</p>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_customer" class="form-label">Customer:</label>
+			<select id="contract_customer" class="form-control" name="customer_id">
+				<option value="non">Not Specified</option>
+				<option th:each="customer : ${customers}" th:value="${customer.first}" th:text="${customer.second}"
+						th:selected="${contract.customer?.id == customer.first}"></option>
+			</select>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_management" class="form-label">Management:</label>
+			<select id="contract_management" class="form-control" name="management_id">
+				<option value="non">Not Specified</option>
+				<option th:each="management : ${managements}" th:value="${management.first}" th:text="${management.second}"
+						th:selected="${contract.constructionManagement?.id == management.first}"></option>
+			</select>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_price" class="form-label">Price:</label>
+			<input id="contract_price" class="form-control" type="number" th:field="*{price}" th:value="${contract.price}" />
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_plot" class="form-label">Plot:</label>
+			<select id="contract_plot" class="form-control" name="plot_id">
+				<option value="non">Not Specified</option>
+				<option th:each="plot : ${plots}" th:value="${plot.first}" th:text="${plot.second}"
+						th:selected="${contract.plot?.id == plot.first}"></option>
+			</select>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_signed" class="form-label">Signed Date:</label>
+			<input id="contract_signed" class="form-control" type="date" th:field="*{signedDate}"  />
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_project_start" class="form-label">Project Start Date:</label>
+			<input id="contract_project_start" class="form-control" type="date" th:field="*{projectStartDate}" />
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_project_finished" class="form-label">Project Finish Date:</label>
+			<input id="contract_project_finished" class="form-control" type="date" th:field="*{projectFinishedDate}" />
+		</div>
+
+		<div class="mb-3 row">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" th:field="*{finished}" id="contract_is_finished">
+				<label class="form-check-label" for="contract_is_finished">
+					Finished
+				</label>
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" th:field="*{failed}" id="contract_is_failed">
+				<label class="form-check-label" for="contract_is_failed" >
+					Failed
+				</label>
+			</div>
+		</div>
+
+
+		<div class="mb-3 row">
+			<a class="btn btn-outline-secondary col-5" href="/contracts">Cancel</a>
+			<div class="col-2"></div>
+			<input type="submit" class="btn btn-primary col-5" value="Save Changes">
+		</div>
+	</form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
+
+</body>
+</html>

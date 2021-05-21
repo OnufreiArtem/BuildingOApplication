@@ -10,6 +10,10 @@ import java.util.*
 @Service
 class ConstructionManagementServiceImpl(private val repo: ConstructionManagementRepository)
     : ConstructionManagementService {
+    override fun getAllAddresses(): List<Pair<String, String>> {
+        return findAll().map { Pair(it.id, it.address) }
+    }
+
     override fun findAll(): List<ConstructionManagement> {
         return repo.findAll()
     }

@@ -10,19 +10,21 @@ import java.util.*
 data class Customer(
         @ApiModelProperty(notes="The id of the customer in UUID format.")
         @Id
-        val id: String = UUID.randomUUID().toString(),
+        var id: String = UUID.randomUUID().toString(),
         @ApiModelProperty(notes="The type of the customer.")
-        var type: CustomerType,
+        var type: CustomerType?,
+        @ApiModelProperty(notes="Name of organization or person which order something")
+        var name: String = "",
         @ApiModelProperty(notes="The name of the person to communicate with.")
-        var contactName: String,
+        var contactName: String = "",
         @ApiModelProperty(notes="The surname of the person to communicate with.")
-        var contactSurname: String,
+        var contactSurname: String = "",
         @ApiModelProperty(notes="The phone number of the person to communicate with.")
         var contactPhoneNumber: String?,
         @ApiModelProperty(notes="The e-mail of the person to communicate with.")
-        var contactEMail: String,
+        var contactEMail: String = "",
         @ApiModelProperty(notes="The date and time when object was created.")
-        val createdAt: LocalDateTime = LocalDateTime.now(),
+        var createdAt: LocalDateTime = LocalDateTime.now(),
         @ApiModelProperty(notes="The date and time when object was lastly modified.")
         var modifiedAt: LocalDateTime = LocalDateTime.now()
 )

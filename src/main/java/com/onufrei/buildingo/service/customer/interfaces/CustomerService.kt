@@ -11,4 +11,5 @@ import com.onufrei.buildingo.service.CrudGenericService
  */
 
 interface CustomerService : CrudGenericService<Customer> {
+    fun getCustomerContactText() : List<Pair<String, String>>
 }
