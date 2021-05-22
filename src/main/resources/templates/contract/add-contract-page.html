@@ -19,7 +19,7 @@
 
 		<div class="mb-3 row">
 			<label for="contract_customer" class="form-label">Customer:</label>
-			<select id="contract_customer" class="form-control" name="customer_id">
+			<select id="contract_customer" class="form-control" name="customer_id" required>
 				<option value="non">Not Specified</option>
 				<option th:each="customer : ${customers}" th:value="${customer.first}" th:text="${customer.second}"
 					th:selected="${contract.customer?.id == customer.first}"></option>
@@ -27,7 +27,7 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="contract_management" class="form-label">Management:</label>
-			<select id="contract_management" class="form-control" name="management_id">
+			<select id="contract_management" class="form-control" name="management_id" required>
 				<option value="non">Not Specified</option>
 				<option th:each="management : ${managements}" th:value="${management.first}" th:text="${management.second}"
 						th:selected="${contract.constructionManagement?.id == management.first}"></option>
@@ -35,11 +35,11 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="contract_price" class="form-label">Price:</label>
-			<input id="contract_price" class="form-control" type="number" th:field="*{price}" th:value="${contract.price}" />
+			<input id="contract_price" class="form-control" pattern="^[1-9]\d*$" required type="text" th:field="*{price}" th:value="${contract.price}" />
 		</div>
 		<div class="mb-3 row">
 			<label for="contract_plot" class="form-label">Plot:</label>
-			<select id="contract_plot" class="form-control" name="plot_id">
+			<select id="contract_plot" class="form-control" name="plot_id" required>
 				<option value="non">Not Specified</option>
 				<option th:each="plot : ${plots}" th:value="${plot.first}" th:text="${plot.second}"
 						th:selected="${contract.plot?.id == plot.first}"></option>
@@ -47,20 +47,20 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="contract_signed" class="form-label">Signed Date:</label>
-			<input id="contract_signed" class="form-control" type="date" th:field="*{signedDate}"  />
+			<input id="contract_signed" class="form-control" type="date" th:field="*{signedDate}" required />
 		</div>
 		<div class="mb-3 row">
 			<label for="contract_project_start" class="form-label">Project Start Date:</label>
-			<input id="contract_project_start" class="form-control" type="date" th:field="*{projectStartDate}" />
+			<input id="contract_project_start" class="form-control" type="date" th:field="*{projectStartDate}" required />
 		</div>
 		<div class="mb-3 row">
 			<label for="contract_project_finished" class="form-label">Project Finish Date:</label>
-			<input id="contract_project_finished" class="form-control" type="date" th:field="*{projectFinishedDate}" />
+			<input id="contract_project_finished" class="form-control" required type="date" th:field="*{projectFinishedDate}" />
 		</div>
 
 		<div class="mb-3 row">
 			<div class="form-check">
-				<input class="form-check-input" type="checkbox" th:field="*{finished}" id="contract_is_finished">
+				<input class="form-check-input" type="checkbox" th:field="*{finished}" required id="contract_is_finished">
 				<label class="form-check-label" for="contract_is_finished">
 					Finished
 				</label>

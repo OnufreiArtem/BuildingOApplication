@@ -18,23 +18,23 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="storage_name" class="form-label">Name:</label>
-			<input id="storage_name" class="form-control" required type="text" th:field="*{name}" th:value="${storage.name}"/>
+			<input id="storage_name" maxlength="30" class="form-control" required type="text" th:field="*{name}" th:value="${storage.name}"/>
 		</div>
 
 		<div class="mb-3 row">
 			<label for="storage_description" class="form-label">Description:</label>
-			<input id="storage_description" class="form-control" type="text" th:field="*{description}" th:value="${storage.description}"/>
+			<input id="storage_description" maxlength="80" class="form-control" type="text" th:field="*{description}" th:value="${storage.description}"/>
 		</div>
 		
 		<div class="mb-3 row">
 			<label for="storage_address" class="form-label">Address:</label>
-			<input id="storage_address" class="form-control" type="text" th:field="*{address}" th:value="${storage.address}"/>
+			<input id="storage_address" maxlength="50" class="form-control" type="text" th:field="*{address}" th:value="${storage.address}"/>
 		</div>
 
 		<div class="mb-3 row">
 			<a class="btn btn-outline-secondary col-5" href="/machinery-storages">Cancel</a>
 			<div class="col-2"></div>
-			<input type="submit" class="btn btn-primary col-5" value="Add">
+			<input type="submit" class="btn btn-primary col" value="Add">
 		</div>
 	</form>
 </div>

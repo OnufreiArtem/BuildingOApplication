@@ -18,12 +18,12 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="building_step_name" class="form-label">Name:</label>
-			<input id="building_step_name" class="form-control" required type="text" th:field="*{name}" th:value="${step.name}"/>
+			<input id="building_step_name" maxlength="30" class="form-control" required type="text" th:field="*{name}" th:value="${step.name}"/>
 		</div>
 
 		<div class="mb-3 row">
 			<label for="building_step_description" class="form-label">Description:</label>
-			<input id="building_step_description" class="form-control" type="text" th:field="*{description}" th:value="${step.description}"/>
+			<input id="building_step_description" maxlength="80" class="form-control" type="text" th:field="*{description}" th:value="${step.description}"/>
 		</div>
 
 		<div class="mb-3 row">

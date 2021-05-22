@@ -18,7 +18,7 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="plot_name" class="form-label">Address:</label>
-			<input id="plot_name" class="form-control" required type="text" th:field="*{address}" th:value="${plot.address}"/>
+			<input id="plot_name" maxlength="50" class="form-control" required type="text" th:field="*{address}" th:value="${plot.address}"/>
 		</div>
 		<div class="mb-3 row">
 			<label for="chief" class="form-label">Chief:</label>

@@ -34,7 +34,7 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="contract_price" class="form-label">Price:</label>
-			<input id="contract_price" class="form-control" type="number" th:field="*{price}" th:value="${contract.price}" />
+			<input id="contract_price" class="form-control" pattern="^[1-9]\d*$" type="number" th:field="*{price}" th:value="${contract.price}" />
 		</div>
 		<div class="mb-3 row">
 			<label for="contract_plot" class="form-label">Plot:</label>

@@ -19,23 +19,23 @@
 
 		<div class="mb-3 row">
 			<label for="machinery_model" class="form-label">Model:</label>
-			<input id="machinery_model" class="form-control" required type="text" th:field="*{model}"/>
+			<input id="machinery_model" maxlength="30" class="form-control" required type="text" th:field="*{model}"/>
 		</div>
 		<div class="mb-3 row">
 			<label for="machinery_number" class="form-label">Number:</label>
-			<input id="machinery_number" class="form-control" required type="text" th:field="*{number}"/>
+			<input id="machinery_number" maxlength="9" class="form-control" required type="text" th:field="*{number}"/>
 		</div>
 		<div class="mb-3 row">
 			<label for="machinery_description" class="form-label">Description:</label>
-			<input id="machinery_description" class="form-control" required type="text" th:field="*{description}"/>
+			<input id="machinery_description" maxlength="80" class="form-control" required type="text" th:field="*{description}"/>
 		</div>
 		<div class="mb-3 row">
 			<label for="machinery_usage" class="form-label">Usage:</label>
-			<input id="machinery_usage" class="form-control" required type="text" th:field="*{usage}"/>
+			<input id="machinery_usage" maxlength="120" class="form-control" required type="text" th:field="*{usage}"/>
 		</div>
 		<div class="mb-3 row">
 			<label for="machinery_year" class="form-label">Year:</label>
-			<input id="machinery_year" class="form-control" required type="number" th:field="*{year}"/>
+			<input id="machinery_year" pattern="^[1-9]\d*$" min="1910" class="form-control" required type="number" th:field="*{year}"/>
 		</div>
 		<div class="mb-3 row">
 			<label for="storage" class="form-label">Machinery Storage:</label>

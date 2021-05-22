@@ -29,27 +29,27 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="customer_name" class="form-label">Customer Name:</label>
-			<input id="customer_name" class="form-control" required type="text" th:field="*{name}"/>
+			<input id="customer_name" maxlength="50" class="form-control" required type="text" th:field="*{name}"/>
 		</div>
 
 		<div class="mb-3 row">
 			<label for="customer_contact_name" class="form-label">Customer Contact Name:</label>
-			<input id="customer_contact_name" class="form-control" required type="text" th:field="*{contactName}"/>
+			<input id="customer_contact_name" maxlength="30" class="form-control" required type="text" th:field="*{contactName}"/>
 		</div>
 
 		<div class="mb-3 row">
 			<label for="customer_contact_surname" class="form-label">Customer Contact Surname:</label>
-			<input id="customer_contact_surname" class="form-control" required type="text" th:field="*{contactSurname}"/>
+			<input id="customer_contact_surname" maxlength="30" class="form-control" required type="text" th:field="*{contactSurname}"/>
 		</div>
 
 		<div class="mb-3 row">
 			<label for="customer_contact_phonenumber" class="form-label">Customer Contact Phone Number:</label>
-			<input id="customer_contact_phonenumber" class="form-control" type="text" th:field="*{contactPhoneNumber}"/>
+			<input id="customer_contact_phonenumber" pattern="^\+\d{12}$" class="form-control" type="text" th:field="*{contactPhoneNumber}"/>
 		</div>
 
 		<div class="mb-3 row">
 			<label for="customer_contact_email" class="form-label">Customer Contact Email:</label>
-			<input id="customer_contact_email" class="form-control" required type="text" th:field="*{contactEMail}"/>
+			<input id="customer_contact_email" class="form-control" required type="email" th:field="*{contactEMail}"/>
 		</div>
 		<div class="mb-3 row">
 			<a class="btn btn-outline-secondary col-5" href="/customers">Cancel</a>
