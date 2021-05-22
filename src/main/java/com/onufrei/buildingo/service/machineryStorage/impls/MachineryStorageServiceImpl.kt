@@ -3,10 +3,17 @@ package com.onufrei.buildingo.service.machineryStorage.impls
 import com.onufrei.buildingo.model.MachineryStorage
 import com.onufrei.buildingo.repository.MachineryStorageRepository
 import com.onufrei.buildingo.service.machineryStorage.interfaces.MachineryStorageService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.streams.toList
 
+@Service
 class MachineryStorageServiceImpl(private val repo: MachineryStorageRepository) : MachineryStorageService {
+    override fun getMainInfo(): List<Pair<String, String>> {
+        return findAll().stream().map { Pair(it.id, it.address) }.toList()
+    }
+
     override fun findAll(): List<MachineryStorage> {
         return repo.findAll()
     }

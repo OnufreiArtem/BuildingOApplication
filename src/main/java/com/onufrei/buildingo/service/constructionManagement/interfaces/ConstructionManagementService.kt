@@ -11,4 +11,5 @@ import com.onufrei.buildingo.service.CrudGenericService
  */
 
 interface ConstructionManagementService : CrudGenericService<ConstructionManagement> {
+    fun getAllAddresses() : List<Pair<String, String>>
 }

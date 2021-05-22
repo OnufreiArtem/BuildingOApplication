@@ -11,4 +11,5 @@ import com.onufrei.buildingo.service.CrudGenericService
  */
 
 interface BuildingStepService : CrudGenericService<BuildingStep> {
+    fun allStepNames() : List<Pair<String, String>>
 }

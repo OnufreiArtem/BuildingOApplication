@@ -3,10 +3,17 @@ package com.onufrei.buildingo.service.buildingStep.impls
 import com.onufrei.buildingo.model.BuildingStep
 import com.onufrei.buildingo.repository.BuildingStepRepository
 import com.onufrei.buildingo.service.buildingStep.interfaces.BuildingStepService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.streams.toList
 
+@Service
 class BuildingStepServiceImpl(private val repo: BuildingStepRepository) : BuildingStepService {
+    override fun allStepNames(): List<Pair<String, String>> {
+        return findAll().stream().map { Pair(it.id, it.name) }.toList()
+    }
+
     override fun findAll(): List<BuildingStep> {
         return repo.findAll()
     }
@@ -16,7 +23,7 @@ class BuildingStepServiceImpl(private val repo: BuildingStepRepository) : Buildi
     }
 
     override fun add(e: BuildingStep): BuildingStep? {
-        if(findById(e.id) == null) {
+        if (findById(e.id) == null) {
             val buildingStep = e.copy(
                     id = UUID.randomUUID().toString(),
                     createdAt = LocalDateTime.now()

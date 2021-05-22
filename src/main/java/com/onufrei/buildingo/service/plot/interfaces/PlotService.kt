@@ -11,4 +11,5 @@ import com.onufrei.buildingo.service.CrudGenericService
  */
 
 interface PlotService : CrudGenericService<Plot> {
+    fun getAddressList() : List<Pair<String, String>>
 }

@@ -6,9 +6,13 @@ import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSp
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.streams.toList
 
 @Service
 class EmployeeSpecificationServiceImpl(private val repo: EmployeeSpecificationRepository) : EmployeeSpecificationService {
+    override fun getListOfSpecificationNames(): List<Pair<String, String>> {
+        return findAll().stream().map { Pair(it.id, it.name) }.toList()
+    }
 
     override fun findAll() : List<EmployeeSpecification> {
         return repo.findAll()

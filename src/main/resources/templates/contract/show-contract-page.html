@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+
+	<title>Building Organization | Show Contract</title>
+</head>
+<body>
+<div th:insert="base/navbar :: navbar"></div>
+
+<div class="d-flex justify-content-center align-items-center">
+
+	<form class="border shadow rounded p-5 mt-5" th:object="${contract}">
+		<div class="text-center">
+			<p class="fs-3 mb-5">Show Employee Specification:</p>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_customer" class="form-label">Customer:</label>
+			<input type="text" id="contract_customer" class="form-control" th:value="${contract.customer != null ? contract.customer.name : 'Not Specified'}"
+				   readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_management" class="form-label">Management:</label>
+			<input type="text" id="contract_management" class="form-control"
+				   th:value="${contract.constructionManagement != null ? contract.constructionManagement.address : 'Not Specified'}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_price" class="form-label">Price:</label>
+			<input id="contract_price" class="form-control" type="number" th:field="*{price}" th:value="${contract.price}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_plot" class="form-label">Plot:</label>
+			<input type="text" id="contract_plot" class="form-control" th:value="${contract.plot != null ? contract.plot.address : 'Not Specified'}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_signed" class="form-label">Signed Date:</label>
+			<input id="contract_signed" class="form-control" type="date" th:field="*{signedDate}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_project_start" class="form-label">Project Start Date:</label>
+			<input id="contract_project_start" class="form-control" type="date" th:field="*{projectStartDate}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_project_finished" class="form-label">Project Finish Date:</label>
+			<input id="contract_project_finished" class="form-control" type="date" th:field="*{projectFinishedDate}" readonly/>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="contract_is_finished" class="form-label">Is Finished:</label>
+			<input id="contract_is_finished" class="form-control" type="text" th:value="${contract.finished ? 'Yes' : 'No'}" readonly/>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="contract_is_failed" class="form-label">Is Failed:</label>
+			<input id="contract_is_failed" class="form-control" type="text" th:value="${contract.failed ? 'Yes' : 'No'}" readonly/>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="contract_created_at" class="form-label">Created at:</label>
+			<input id="contract_created_at" class="form-control" type="text" th:field="*{createdAt}" th:value="${contract.createdAt}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="contract_modified_at" class="form-label">Modified at:</label>
+			<input id="contract_modified_at" class="form-control" type="text" th:field="*{modifiedAt}" th:value="${contract.modifiedAt}" readonly/>
+		</div>
+
+		<div class="mb-3 row">
+			<a class="btn btn-outline-secondary col" href="/contracts">Back to Contract List</a>
+		</div>
+	</form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,12 +1,19 @@
 package com.onufrei.buildingo.service.estimate.impls
 
 import com.onufrei.buildingo.model.Estimate
+import com.onufrei.buildingo.model.Plot
 import com.onufrei.buildingo.repository.EstimateRepository
 import com.onufrei.buildingo.service.estimate.interfaces.EstimateService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.streams.toList
 
+@Service
 class EstimateServiceImpl(private val repo: EstimateRepository) : EstimateService {
+    override fun getMainInfo(): List<Pair<String, String>> {
+        return findAll().stream().map { Pair(it.id, it.plot?.address ?: it.id) }.toList()
+    }
 
     override fun findAll(): List<Estimate> {
         return repo.findAll()

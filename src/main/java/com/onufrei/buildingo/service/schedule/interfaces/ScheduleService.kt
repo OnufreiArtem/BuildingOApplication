@@ -11,4 +11,5 @@ import com.onufrei.buildingo.service.CrudGenericService
  */
 
 interface ScheduleService : CrudGenericService<Schedule> {
+    fun getPlansOfAllTargetBuildings() : List<Pair<String, String>>
 }

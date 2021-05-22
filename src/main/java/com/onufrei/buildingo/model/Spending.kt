@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
@@ -12,7 +13,7 @@ import java.util.*
 data class Spending(
         @ApiModelProperty(notes="The id of the schedule event in UUID format.")
         @Id
-        val id: String = UUID.randomUUID().toString(),
+        var id: String = UUID.randomUUID().toString(),
         @ApiModelProperty(notes="The name of the spending.")
         var name: String,
         @ApiModelProperty(notes="The description of the spending.")
@@ -22,14 +23,16 @@ data class Spending(
         @ApiModelProperty(notes="The price for unit.")
         var price: Float,
         @ApiModelProperty(notes="The target estimate.")
-        @DBRef(lazy = true)
-        var estimate: Estimate,
+        @DBRef
+        var estimate: Estimate?,
         @ApiModelProperty(notes="The date when resource was requested.")
-        var requestDate: LocalDate,
+        @field:DateTimeFormat(pattern = "yyyy-MM-dd")
+        var requestDate: LocalDate?,
         @ApiModelProperty(notes="The date when resource was got.")
-        var satisfiedDate: LocalDate,
+        @field:DateTimeFormat(pattern = "yyyy-MM-dd")
+        var satisfiedDate: LocalDate?,
         @ApiModelProperty(notes="The date and time when object was created.")
-        val createdAt: LocalDateTime = LocalDateTime.now(),
+        var createdAt: LocalDateTime = LocalDateTime.now(),
         @ApiModelProperty(notes="The date and time when object was lastly modified.")
         var modifiedAt: LocalDateTime = LocalDateTime.now()
 )

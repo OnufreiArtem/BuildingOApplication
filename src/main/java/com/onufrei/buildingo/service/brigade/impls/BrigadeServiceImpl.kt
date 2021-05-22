@@ -6,9 +6,14 @@ import com.onufrei.buildingo.service.brigade.interfaces.BrigadeService
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.streams.toList
 
 @Service
 class BrigadeServiceImpl(private val repo: BrigadeRepository) : BrigadeService{
+    override fun getMainInfo(): List<Pair<String, String>> {
+        return findAll().stream().map { Pair(it.id, it.name) }.toList()
+    }
+
     override fun findAll(): List<Brigade> {
         return repo.findAll()
     }

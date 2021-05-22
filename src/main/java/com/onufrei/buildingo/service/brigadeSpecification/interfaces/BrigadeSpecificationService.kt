@@ -11,4 +11,5 @@ import com.onufrei.buildingo.service.CrudGenericService
  */
 
 interface BrigadeSpecificationService : CrudGenericService<BrigadeSpecification> {
+    fun getIdNamePairs() : List<Pair<String, String>>
 }

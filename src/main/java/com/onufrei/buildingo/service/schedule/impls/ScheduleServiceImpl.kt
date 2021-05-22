@@ -1,12 +1,20 @@
 package com.onufrei.buildingo.service.schedule.impls
 
+import com.onufrei.buildingo.model.Building
 import com.onufrei.buildingo.model.Schedule
 import com.onufrei.buildingo.repository.ScheduleRepository
 import com.onufrei.buildingo.service.schedule.interfaces.ScheduleService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
+@Service
 class ScheduleServiceImpl(private val repo: ScheduleRepository) : ScheduleService {
+    override fun getPlansOfAllTargetBuildings(): List<Pair<String, String>> {
+        val buildingPairs =  mutableListOf<Pair<String, Building>>();
+        findAll().forEach { it.targetBuilding?.let { b -> buildingPairs.add(Pair(it.id, b))} }
+        return buildingPairs.map { Pair(it.first, it.second.plan) }.toList()
+    }
 
     override fun findAll(): List<Schedule> {
         return repo.findAll()

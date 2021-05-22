@@ -11,4 +11,5 @@ import com.onufrei.buildingo.service.CrudGenericService
  */
 
 interface MachineryStorageService : CrudGenericService<MachineryStorage> {
+    fun getMainInfo() : List<Pair<String, String>>
 }
