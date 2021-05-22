@@ -59,9 +59,9 @@
 					</div>
 				</th>
 				<th scope="row" th:text="${building.id}"></th>
-				<td th:text="${building.plot != null} ? ${building.plot.address} : 'Not specified'"></td>
+				<td><a th:href="${building.plot == null ? '#' : '/plots/show/' + building.plot.id}" th:text="${building.plot != null} ? ${building.plot.address} : 'Not specified'"></a></td>
 				<td th:text="${building.plan}"></td>
-				<td th:text="${building.chief != null} ? ${building.chief.name} + ' ' + ${building.chief.surname} : 'Not specified'"></td>
+				<td><a th:href="${building.chief == null ? '#' : '/employees/show/' + building.chief.id}" th:text="${building.chief != null} ? ${building.chief.name} + ' ' + ${building.chief.surname} : 'Not specified'"></a></td>
 			</tr>
 			</tbody>
 		</table>

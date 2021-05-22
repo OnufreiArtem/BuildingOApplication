@@ -62,7 +62,7 @@
 				<th scope="row" th:text="${management.id}"></th>
 				<td th:text="${management.name}"></td>
 				<td th:text="${management.description}"></td>
-				<td th:text="${management.chief == null ? 'Not specified' : management.chief.name + ' ' + management.chief.surname}"></td>
+				<td><a th:href="${management.chief == null ? '#' : '/employees/show/' + management.chief.id}" th:text="${management.chief == null ? 'Not specified' : management.chief.name + ' ' + management.chief.surname}"></a></td>
 				<td th:text="${management.address}"></td>
 			</tbody>
 		</table>

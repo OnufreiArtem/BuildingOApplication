@@ -14,7 +14,7 @@
 
 	<form class="border shadow rounded p-5 mt-5" th:object="${plot}">
 		<div class="text-center">
-			<p class="fs-3 mb-5">Show Employee Specification:</p>
+			<p class="fs-3 mb-5">Show Plot:</p>
 		</div>
 		<div class="mb-3 row">
 			<label for="id_field" class="col-sm-2 col-form-label">Id:</label>
@@ -40,8 +40,7 @@
 			<input id="plot_modified_at" class="form-control" type="text" th:field="*{modifiedAt}" th:value="${plot.modifiedAt}" readonly/>
 		</div>
 		<div class="mb-3 row">
-			<a class="btn btn-outline-secondary col-5" href="/plots">Exit</a>
-			<div class="col-7"></div>
+			<a class="btn btn-outline-secondary col" href="/plots">Back to Plot List</a>
 		</div>
 	</form>
 </div>

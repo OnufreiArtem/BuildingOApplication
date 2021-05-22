@@ -19,13 +19,13 @@ data class ScheduleEvent(
         @ApiModelProperty(notes="The building pace of the event.")
         var buildingStep: BuildingStep?,
         @ApiModelProperty(notes="The brigades that participate in the event.")
-        var participants: List<Brigade>,
+        var brigade: Brigade?,
         @ApiModelProperty(notes="The date and time when work starts.")
         @field:DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-        var beginning: LocalDateTime,
+        var beginning: LocalDateTime?,
         @ApiModelProperty(notes="The date and time when work ends.")
         @field:DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-        var ending: LocalDateTime,
+        var ending: LocalDateTime?,
         @ApiModelProperty(notes="The target schedule.")
         var schedule: Schedule?,
         @ApiModelProperty(notes="The date and time when object was created.")

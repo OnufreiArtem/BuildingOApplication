@@ -75,7 +75,7 @@
 				<td scope="row" th:text="${employee.hiredDate}"></td>
 				<td scope="row" th:text="${employee.firedDate}"></td>
 				<td scope="row" th:text="${employee.active}"></td>
-				<td scope="row" th:text="${employee.specification == null ? 'Not Specified' : employee.specification.name}"></td>
+				<td scope="row"><a th:href="${employee.specification == null ? '#' : '/employee-specs/show/' + employee.specification.id}" th:text="${employee.specification == null ? 'Not Specified' : employee.specification.name}"></a></td>
 			</tbody>
 		</table>
 	</div>

@@ -57,7 +57,7 @@
 					</div>
 				</th>
 				<th scope="row" th:text="${estimate.id}"></th>
-				<td th:text="${estimate.plot != null} ? ${estimate.plot.address} : 'Not specified'"></td>
+				<td><a th:href="${estimate.plot == null ? '#' : '/plots/show/' + estimate.plot.id}" th:text="${estimate.plot != null} ? ${estimate.plot.address} : 'Not specified'"></a></td>
 			</tbody>
 		</table>
 	</div>

@@ -69,7 +69,7 @@
 				<th scope="row" th:text="${machinery.description}"></th>
 				<th scope="row" th:text="${machinery.usage}"></th>
 				<th scope="row" th:text="${machinery.year}"></th>
-				<th scope="row" th:text="${machinery.machineryStorage == null ? 'Not Specified' : machinery.machineryStorage.address }"></th>
+				<th scope="row"><a th:href="${machinery.machineryStorage == null ? '#' : '/machinery-storages/show/' + machinery.machineryStorage.id}" th:text="${machinery.machineryStorage == null ? 'Not Specified' : machinery.machineryStorage.address }"></a></th>
 				<th scope="row" th:text="${machinery.inUsage}"></th>
 				<th scope="row" th:text="${machinery.active}"></th>
 			</tbody>

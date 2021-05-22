@@ -22,10 +22,7 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="estimate_plot" class="form-label">Plot:</label>
-			<select id="estimate_plot" class="form-control" name="estimate_plot">
-				<option value="non">Not Specified</option>
-				<option th:each="plot : ${plots}" th:value="${plot.first}" th:text="${plot.second}"></option>
-			</select>
+			<input type="text" id="estimate_plot" class="form-control" th:value="${estimate.plot != null ? estimate.plot.address : 'Not Specified'}" readonly/>
 		</div>
 		<div class="mb-3 row">
 			<label for="estimate_created_at" class="form-label">Created at:</label>
@@ -36,7 +33,7 @@
 			<input id="estimate_modified_at" class="form-control" type="text" th:field="*{modifiedAt}" th:value="${estimate.modifiedAt}" readonly/>
 		</div>
 		<div class="mb-3 row">
-			<a class="btn btn-outline-secondary col-5" href="/estimates">Exit</a>
+			<a class="btn btn-outline-secondary col-5" href="/estimates">Back to Estimate List</a>
 			<div class="col"></div>
 		</div>
 	</form>

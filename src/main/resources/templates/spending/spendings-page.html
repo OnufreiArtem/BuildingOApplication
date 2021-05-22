@@ -67,7 +67,7 @@
 				<th scope="row" th:text="${spending.description}"></th>
 				<th scope="row" th:text="${spending.count}"></th>
 				<th scope="row" th:text="${spending.price}"></th>
-				<th scope="row" th:text="${spending.estimate == null ? 'Not Specified' : (spending.estimate.plot == null ? spending.estimate.id : spending.estimate.plot.address)}"></th>
+				<th scope="row"><a th:href="${spending.estimate == null ? '#' : '/estimates/show/' + spending.estimate.id}" th:text="${spending.estimate == null ? 'Not Specified' : (spending.estimate.plot == null ? spending.estimate.id : spending.estimate.plot.address)}"></a></th>
 				<th scope="row" th:text="${spending.requestDate}"></th>
 				<th scope="row" th:text="${spending.satisfiedDate}"></th>
 			</tbody>

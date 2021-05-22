@@ -68,10 +68,10 @@
 				<td scope="row" th:text="${request.description}"></td>
 				<td scope="row" th:text="${request.type == null ? 'Not Specified' : request.type.name()}"></td>
 				<td scope="row" th:text="${request.satisfied}"></td>
-				<td scope="row" th:text="${request.building == null ? 'Not Specified' : request.building?.plot?.address + ' - ' + request.building?.plan}"></td>
+				<td scope="row"><a th:href="${request.building == null ? '#' : '/buildings/show/' + request.building.id}" th:text="${request.building == null ? 'Not Specified' : request.building?.plot?.address + ' - ' + request.building?.plan}"></a></td>
 				<td scope="row" th:text="${request.date}"></td>
-				<td scope="row" th:text="${request.brigadeThatAsked != null ? request.brigadeThatAsked.name : 'Not Specified'}"></td>
-				<td scope="row" th:text="${request.constructionManagement != null ? request.constructionManagement.address : 'Not Specified' }"></td>
+				<td scope="row"><a th:href="${request.brigadeThatAsked == null ? '#' : '/brigades/show/' + request.brigadeThatAsked.id}" th:text="${request.brigadeThatAsked != null ? request.brigadeThatAsked.name : 'Not Specified'}"></a></td>
+				<td scope="row"><a th:href="${request.constructionManagement == null ? '#' : '/managements/show/' + request.constructionManagement.id}" th:text="${request.constructionManagement != null ? request.constructionManagement.address : 'Not Specified' }"></a></td>
 			</tbody>
 		</table>
 	</div>

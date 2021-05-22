@@ -58,7 +58,7 @@
 					</div>
 				</th>
 				<th scope="row" th:text="${schedule.id}"></th>
-				<td scope="row" th:text="${schedule.targetBuilding == null ? 'Not Specified' : schedule.targetBuilding?.plot?.address + ' - ' + schedule.targetBuilding?.plan}"></td>
+				<td scope="row"><a th:href="${schedule.targetBuilding == null ? '#' : '/schedules/show/' + schedule.targetBuilding.id}" th:text="${schedule.targetBuilding == null ? 'Not Specified' : schedule.targetBuilding?.plot?.address + ' - ' + schedule.targetBuilding?.plan}"></a></td>
 			</tbody>
 		</table>
 	</div>

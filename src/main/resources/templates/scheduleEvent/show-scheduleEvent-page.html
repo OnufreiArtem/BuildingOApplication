@@ -20,6 +20,39 @@
 			<label for="id_field" class="col-sm-2 col-form-label">Id:</label>
 			<input type="text" class="form-control" id="id_field" th:value="${scheduleEvent.id}" readonly>
 		</div>
+
+		<div class="mb-3 row">
+			<label for="scheduleEvent_name" class="form-label">Name:</label>
+			<input id="scheduleEvent_name" class="form-control" required type="text" th:field="*{name}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="scheduleEvent_description" class="form-label">Description:</label>
+			<input id="scheduleEvent_description" class="form-control" required type="text" th:field="*{description}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="scheduleEvent_step" class="form-label">Building Step:</label>
+			<input type="text" class="form-control" id="scheduleEvent_step"
+				   th:value="${scheduleEvent.buildingStep == null ? 'Not Specified' : scheduleEvent.buildingStep?.name}" readonly>
+		</div>
+		<div class="mb-3 row">
+			<label for="brigade" class="form-label">Brigade:</label>
+			<input type="text" class="form-control" id="brigade"
+				   th:value="${scheduleEvent.brigade == null ? 'Not Specified' : scheduleEvent.brigade?.name}"
+				   readonly>
+		</div>
+		<div class="mb-3 row">
+			<label for="scheduleEvent_begin" class="form-label">Beginning Date:</label>
+			<input id="scheduleEvent_begin" class="form-control" required type="datetime-local" th:field="*{beginning}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="scheduleEvent_end" class="form-label">Ending Date:</label>
+			<input id="scheduleEvent_end" class="form-control" required type="datetime-local" th:field="*{ending}" readonly/>
+		</div>
+		<div class="mb-3 row">
+			<label for="scheduleEvent_schedule" class="form-label">Schedule:</label>
+			<input type="text" class="form-control" id="scheduleEvent_schedule"
+				   th:value="${scheduleEvent.schedule == null ? 'Not Specified' : scheduleEvent.schedule?.targetBuilding?.plan}" readonly>
+		</div>
 		<div class="mb-3 row">
 			<label for="scheduleEvent_created_at" class="form-label">Created at:</label>
 			<input id="scheduleEvent_created_at" class="form-control" type="text" th:field="*{createdAt}" th:value="${scheduleEvent.createdAt}" readonly/>
@@ -29,7 +62,7 @@
 			<input id="scheduleEvent_modified_at" class="form-control" type="text" th:field="*{modifiedAt}" th:value="${scheduleEvent.modifiedAt}" readonly/>
 		</div>
 		<div class="mb-3 row">
-			<a class="btn btn-outline-secondary col" href="/scheduleEvents">Back to ScheduleEvent list</a>
+			<a class="btn btn-outline-secondary col" href="/schedule-events">Back to ScheduleEvent list</a>
 		</div>
 	</form>
 </div>

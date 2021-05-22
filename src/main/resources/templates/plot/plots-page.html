@@ -59,7 +59,7 @@
 				</th>
 				<th scope="row" th:text="${plot.id}"></th>
 				<td th:text="${plot.address}"></td>
-				<td th:text="${plot.chief != null} ? ${plot.chief.name} + ' ' + ${plot.chief.surname} : 'Not specified'"></td>
+				<td><a th:href="${plot.chief == null ? '#' : '/employees/show/' + plot.chief.id}" th:text="${plot.chief != null} ? ${plot.chief.name} + ' ' + ${plot.chief.surname} : 'Not specified'"></a></td>
 			</tbody>
 		</table>
 	</div>
