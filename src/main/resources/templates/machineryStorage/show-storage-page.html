@@ -22,17 +22,17 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="storage_name" class="form-label">Name:</label>
-			<input id="storage_name" class="form-control" required type="text" th:field="*{name}" th:value="${storage.name}"/>
+			<input id="storage_name" class="form-control" required type="text" th:field="*{name}" th:value="${storage.name}" readonly/>
 		</div>
 
 		<div class="mb-3 row">
 			<label for="storage_description" class="form-label">Description:</label>
-			<input id="storage_description" class="form-control" type="text" th:field="*{description}" th:value="${storage.description}"/>
+			<input id="storage_description" class="form-control" type="text" th:field="*{description}" th:value="${storage.description}" readonly/>
 		</div>
 
 		<div class="mb-3 row">
 			<label for="storage_address" class="form-label">Address:</label>
-			<input id="storage_address" class="form-control" type="text" th:field="*{address}" th:value="${storage.address}"/>
+			<input id="storage_address" class="form-control" type="text" th:field="*{address}" th:value="${storage.address}" readonly/>
 		</div>
 		<div class="mb-3 row">
 			<label for="storage_created_at" class="form-label">Created at:</label>

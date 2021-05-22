@@ -71,7 +71,7 @@ public class ContractController {
 		model.addAttribute("contract", contractService.findById(id));
 		model.addAttribute("customers", customerService.getCustomerContactText());
 		model.addAttribute("managements", constructionManagementService.getAllAddresses());
-		model.addAttribute("plots", customerService.getCustomerContactText());
+		model.addAttribute("plots", plotService.getAddressList());
 
 		return "contract/edit-contract-page";
 	}

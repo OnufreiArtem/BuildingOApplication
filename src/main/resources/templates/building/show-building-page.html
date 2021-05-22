@@ -14,14 +14,11 @@
 
 	<form class="border shadow rounded p-5 mt-5" th:object="${building}" >
 		<div class="text-center">
-			<p class="fs-3 mb-5">Show Brigade:</p>
+			<p class="fs-3 mb-5">Show Building:</p>
 		</div>
 		<div class="mb-3 row">
 			<label for="building_plot" class="form-label">Plot:</label>
-			<select id="building_plot" class="form-control" name="building_plot" readonly>
-				<option value="non">Not Specified</option>
-				<option th:each="plot : ${plots}" th:value="${plot.first}" th:text="${plot.second}"></option>
-			</select>
+			<input id="building_plot" class="form-control" readonly type="text" th:value="${building.plot == null ? 'Not Specified' : building.plot.address}" />
 		</div>
 		<div class="mb-3 row">
 			<label for="building_description" class="form-label">Plan:</label>
@@ -29,10 +26,7 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="chief" class="form-label">Chief:</label>
-			<select id="chief" class="form-control" name="employee_id" readonly>
-				<option value="non">Not Specified</option>
-				<option th:each="empl : ${employees}" th:value="${empl.first}" th:text="${empl.second}"></option>
-			</select>
+			<input id="chief" class="form-control" readonly type="text" th:value="${building.chief == null ? 'Not Specified' : building.chief.name + ' ' + building.chief.surname }">
 		</div>
 
 		<div class="mb-3 row">

@@ -83,6 +83,6 @@ public class EstimateController {
 	@PostMapping("/delete/{id}")
 	private String deleteEstimate(Model model, @PathVariable String id) {
 		estimateService.delete(id);
-		return "redirect:/pestimate";
+		return "redirect:/estimates";
 	}
 }

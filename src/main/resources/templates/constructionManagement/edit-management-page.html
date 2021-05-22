@@ -17,10 +17,6 @@
 			<p class="fs-3 mb-5">Edit Construction Management:</p>
 		</div>
 		<div class="mb-3 row">
-			<label for="id_field" class="col-sm-2 col-form-label">Id:</label>
-			<input type="text" class="form-control" id="id_field" th:value="${management.id}" readonly>
-		</div>
-		<div class="mb-3 row">
 			<label for="management_name" class="form-label">Name:</label>
 			<input id="management_name" class="form-control" required type="text" th:field="*{name}" th:value="${management.name}"/>
 		</div>

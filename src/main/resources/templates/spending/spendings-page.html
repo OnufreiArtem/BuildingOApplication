@@ -7,6 +7,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+	<style>
+		td, th {
+			white-space: nowrap;
+		}
+	</style>
 	<title>Building Organization | Spending List</title>
 </head>
 
@@ -63,13 +68,13 @@
 					</div>
 				</th>
 				<th scope="row" th:text="${spending.id}"></th>
-				<th scope="row" th:text="${spending.name}"></th>
-				<th scope="row" th:text="${spending.description}"></th>
-				<th scope="row" th:text="${spending.count}"></th>
-				<th scope="row" th:text="${spending.price}"></th>
-				<th scope="row"><a th:href="${spending.estimate == null ? '#' : '/estimates/show/' + spending.estimate.id}" th:text="${spending.estimate == null ? 'Not Specified' : (spending.estimate.plot == null ? spending.estimate.id : spending.estimate.plot.address)}"></a></th>
-				<th scope="row" th:text="${spending.requestDate}"></th>
-				<th scope="row" th:text="${spending.satisfiedDate}"></th>
+				<td scope="row" th:text="${spending.name}"></td>
+				<td scope="row" th:text="${spending.description}"></td>
+				<td scope="row" th:text="${spending.count}"></td>
+				<td scope="row" th:text="${spending.price}"></td>
+				<td scope="row"><a th:href="${spending.estimate == null ? '#' : '/estimates/show/' + spending.estimate.id}" th:text="${spending.estimate == null ? 'Not Specified' : (spending.estimate.plot == null ? spending.estimate.id : spending.estimate.plot.address)}"></a></td>
+				<td scope="row" th:text="${spending.requestDate}"></td>
+				<td scope="row" th:text="${spending.satisfiedDate}"></td>
 			</tbody>
 		</table>
 	</div>

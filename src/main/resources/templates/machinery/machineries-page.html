@@ -7,6 +7,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+	<style>
+		td, th {
+			white-space: nowrap;
+		}
+
+		.wrap-text {
+			white-space: break-spaces;
+		}
+
+	</style>
 	<title>Building Organization | Machinery List</title>
 </head>
 
@@ -64,14 +74,14 @@
 					</div>
 				</th>
 				<th scope="row" th:text="${machinery.id}"></th>
-				<th scope="row" th:text="${machinery.model}"></th>
-				<th scope="row" th:text="${machinery.number}"></th>
-				<th scope="row" th:text="${machinery.description}"></th>
-				<th scope="row" th:text="${machinery.usage}"></th>
-				<th scope="row" th:text="${machinery.year}"></th>
-				<th scope="row"><a th:href="${machinery.machineryStorage == null ? '#' : '/machinery-storages/show/' + machinery.machineryStorage.id}" th:text="${machinery.machineryStorage == null ? 'Not Specified' : machinery.machineryStorage.address }"></a></th>
-				<th scope="row" th:text="${machinery.inUsage}"></th>
-				<th scope="row" th:text="${machinery.active}"></th>
+				<td scope="row" th:text="${machinery.model}"></td>
+				<td scope="row" th:text="${machinery.number}"></td>
+				<td scope="row" th:text="${machinery.description}"></td>
+				<td scope="row" th:text="${machinery.usage}"></td>
+				<td scope="row" th:text="${machinery.year}"></td>
+				<td scope="row"><a th:href="${machinery.machineryStorage == null ? '#' : '/machinery-storages/show/' + machinery.machineryStorage.id}" th:text="${machinery.machineryStorage == null ? 'Not Specified' : machinery.machineryStorage.address }"></a></td>
+				<td scope="row" th:text="${machinery.inUsage}"></td>
+				<td scope="row" th:text="${machinery.active}"></td>
 			</tbody>
 		</table>
 	</div>

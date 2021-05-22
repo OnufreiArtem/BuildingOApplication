@@ -5,7 +5,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
 
-	<title>Building Organization | Show Plot</title>
+	<title>Building Organization | Show Estimate</title>
 </head>
 <body>
 <div th:insert="base/navbar :: navbar"></div>
@@ -14,7 +14,7 @@
 
 	<form class="border shadow rounded p-5 mt-5" th:object="${estimate}">
 		<div class="text-center">
-			<p class="fs-3 mb-5">Show Employee Specification:</p>
+			<p class="fs-3 mb-5">Show Estimate:</p>
 		</div>
 		<div class="mb-3 row">
 			<label for="id_field" class="col-sm-2 col-form-label">Id:</label>
@@ -33,8 +33,7 @@
 			<input id="estimate_modified_at" class="form-control" type="text" th:field="*{modifiedAt}" th:value="${estimate.modifiedAt}" readonly/>
 		</div>
 		<div class="mb-3 row">
-			<a class="btn btn-outline-secondary col-5" href="/estimates">Back to Estimate List</a>
-			<div class="col"></div>
+			<a class="btn btn-outline-secondary col" href="/estimates">Back to Estimate List</a>
 		</div>
 	</form>
 </div>

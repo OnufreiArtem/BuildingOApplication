@@ -7,6 +7,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+	<style>
+		td, th {
+			white-space: nowrap;
+		}
+
+		.wrap-text {
+			white-space: break-spaces;
+		}
+
+	</style>
 	<title>Building Organization | Request List</title>
 </head>
 
@@ -65,7 +75,7 @@
 				</th>
 				<th scope="row" th:text="${request.id}"></th>
 				<td scope="row" th:text="${request.title}"></td>
-				<td scope="row" th:text="${request.description}"></td>
+				<td class="wrap-text" scope="row" th:text="${request.description}"></td>
 				<td scope="row" th:text="${request.type == null ? 'Not Specified' : request.type.name()}"></td>
 				<td scope="row" th:text="${request.satisfied}"></td>
 				<td scope="row"><a th:href="${request.building == null ? '#' : '/buildings/show/' + request.building.id}" th:text="${request.building == null ? 'Not Specified' : request.building?.plot?.address + ' - ' + request.building?.plan}"></a></td>

@@ -32,10 +32,8 @@
 
 		<div class="mb-3 row">
 			<label for="chief" class="form-label">Chief:</label>
-			<select id="chief" class="form-control" name="employee_id" readonly>
-				<option value="non">Not Specified</option>
-				<option th:each="empl : ${employees}" th:value="${empl.first}" th:text="${empl.second}"></option>
-			</select>
+			<input type="text" class="form-control" id="chief"
+				   th:value="${management.chief == null ? 'Not Specified' : management.chief.name + ' ' + management.chief.surname}" readonly>
 		</div>
 
 		<div class="mb-3 row">

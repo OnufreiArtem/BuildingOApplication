@@ -18,14 +18,14 @@
 		</div>
 		<div class="mb-3 row">
 			<label for="building_plot" class="form-label">Plot:</label>
-			<select id="building_plot" class="form-control" name="building_plot">
+			<select id="building_plot" class="form-control" name="building_plot" required>
 				<option value="non">Not Specified</option>
 				<option th:each="plot : ${plots}" th:value="${plot.first}" th:text="${plot.second}"></option>
 			</select>
 		</div>
 		<div class="mb-3 row">
 			<label for="building_description" class="form-label">Plan:</label>
-			<input id="building_description" class="form-control" type="text" th:field="*{plan}" th:value="${building.plan}"/>
+			<input id="building_description" class="form-control" type="text" th:field="*{plan}" th:value="${building.plan}" required/>
 		</div>
 		<div class="mb-3 row">
 			<label for="chief" class="form-label">Chief:</label>
