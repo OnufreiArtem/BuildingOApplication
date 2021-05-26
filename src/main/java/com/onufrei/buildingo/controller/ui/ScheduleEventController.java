@@ -1,10 +1,9 @@
 package com.onufrei.buildingo.controller.ui;
 
-import com.onufrei.buildingo.model.Brigade;
 import com.onufrei.buildingo.model.ScheduleEvent;
 import com.onufrei.buildingo.service.brigade.interfaces.BrigadeService;
+import com.onufrei.buildingo.service.building.interfaces.BuildingService;
 import com.onufrei.buildingo.service.buildingStep.interfaces.BuildingStepService;
-import com.onufrei.buildingo.service.schedule.interfaces.ScheduleService;
 import com.onufrei.buildingo.service.scheduleEvent.interfaces.ScheduleEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,14 +30,14 @@ import java.time.LocalDateTime;
 public class ScheduleEventController {
 
 	private final ScheduleEventService scheduleEventService;
-	private final ScheduleService scheduleService;
+	private final BuildingService buildingService;
 	private final BuildingStepService buildingStepService;
 	private final BrigadeService brigadeService;
 
-	public ScheduleEventController(@Autowired ScheduleEventService scheduleEventService, @Autowired ScheduleService scheduleService,
+	public ScheduleEventController(@Autowired ScheduleEventService scheduleEventService, @Autowired BuildingService scheduleService,
 			@Autowired BuildingStepService buildingStepService, @Autowired BrigadeService brigadeService) {
 		this.scheduleEventService = scheduleEventService;
-		this.scheduleService = scheduleService;
+		this.buildingService = scheduleService;
 		this.buildingStepService = buildingStepService;
 		this.brigadeService = brigadeService;
 	}
@@ -57,11 +56,8 @@ public class ScheduleEventController {
 
 	@GetMapping("/add")
 	private String showAddScheduleEvent(Model model) {
-		model.addAttribute("scheduleEvent",
-				new ScheduleEvent("", "", "", null, new Brigade("", "", "", null, null,
-						false, LocalDateTime.now(), LocalDateTime.now()), LocalDateTime.now(), LocalDateTime.now(), null, LocalDateTime.now(),
-						LocalDateTime.now()));
-		model.addAttribute("schedules", scheduleService.getPlansOfAllTargetBuildings());
+		model.addAttribute("scheduleEvent", new ScheduleEvent("", "", "", null, null, null, null, null, LocalDateTime.now(), LocalDateTime.now()));
+		model.addAttribute("buildings", buildingService.getMainInfo());
 		model.addAttribute("steps", buildingStepService.allStepNames());
 		model.addAttribute("brigades", brigadeService.getMainInfo());
 		return "scheduleEvent/add-scheduleEvent-page";
@@ -70,7 +66,7 @@ public class ScheduleEventController {
 	@GetMapping("/edit/{id}")
 	private String showEditScheduleEvent(Model model, @PathVariable String id) {
 		model.addAttribute("scheduleEvent", scheduleEventService.findById(id));
-		model.addAttribute("schedules", scheduleService.getPlansOfAllTargetBuildings());
+		model.addAttribute("buildings", buildingService.getMainInfo());
 		model.addAttribute("steps", buildingStepService.allStepNames());
 		model.addAttribute("brigades", brigadeService.getMainInfo());
 
@@ -78,9 +74,9 @@ public class ScheduleEventController {
 	}
 
 	@PostMapping("/add")
-	private String addScheduleEvent(Model model, @ModelAttribute ScheduleEvent scheduleEvent, @RequestParam("schedule_id") String scheduleId,
+	private String addScheduleEvent(Model model, @ModelAttribute ScheduleEvent scheduleEvent, @RequestParam("building_id") String buildingId,
 			@RequestParam("step_id") String stepId, @RequestParam("brigade_id") String brigadeId) {
-		scheduleEvent.setSchedule(scheduleService.findById(scheduleId));
+		scheduleEvent.setBuilding(buildingService.findById(buildingId));
 		scheduleEvent.setBuildingStep(buildingStepService.findById(stepId));
 		scheduleEvent.setBrigade(brigadeService.findById(brigadeId));
 		scheduleEventService.add(scheduleEvent);
@@ -90,9 +86,9 @@ public class ScheduleEventController {
 
 	@PostMapping("/edit/{id}")
 	private String updateScheduleEvent(Model model, @ModelAttribute ScheduleEvent scheduleEvent, @PathVariable String id,
-			@RequestParam("schedule_id") String scheduleId, @RequestParam("step_id") String stepId, @RequestParam("brigade_id") String brigadeId) {
+			@RequestParam("building_id") String buildingId, @RequestParam("step_id") String stepId, @RequestParam("brigade_id") String brigadeId) {
 		scheduleEvent.setId(id);
-		scheduleEvent.setSchedule(scheduleService.findById(scheduleId));
+		scheduleEvent.setBuilding(buildingService.findById(buildingId));
 		scheduleEvent.setBuildingStep(buildingStepService.findById(stepId));
 		scheduleEvent.setBrigade(brigadeService.findById(brigadeId));
 

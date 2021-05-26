@@ -30,6 +30,12 @@
 			<input id="scheduleEvent_description" class="form-control" required type="text" th:field="*{description}" readonly/>
 		</div>
 		<div class="mb-3 row">
+			<label for="estimate" class="form-label">Building:</label>
+			<input id="estimate" class="form-control"
+				   th:value="${scheduleEvent.building == null ? 'Not Specified' : (scheduleEvent.building == null ? scheduleEvent.building.id : scheduleEvent.building.plot.address)}"
+				   readonly>
+		</div>
+		<div class="mb-3 row">
 			<label for="scheduleEvent_step" class="form-label">Building Step:</label>
 			<input type="text" class="form-control" id="scheduleEvent_step"
 				   th:value="${scheduleEvent.buildingStep == null ? 'Not Specified' : scheduleEvent.buildingStep?.name}" readonly>
@@ -47,11 +53,6 @@
 		<div class="mb-3 row">
 			<label for="scheduleEvent_end" class="form-label">Ending Date:</label>
 			<input id="scheduleEvent_end" class="form-control" required type="datetime-local" th:field="*{ending}" readonly/>
-		</div>
-		<div class="mb-3 row">
-			<label for="scheduleEvent_schedule" class="form-label">Schedule:</label>
-			<input type="text" class="form-control" id="scheduleEvent_schedule"
-				   th:value="${scheduleEvent.schedule == null ? 'Not Specified' : scheduleEvent.schedule?.targetBuilding?.plan}" readonly>
 		</div>
 		<div class="mb-3 row">
 			<label for="scheduleEvent_created_at" class="form-label">Created at:</label>

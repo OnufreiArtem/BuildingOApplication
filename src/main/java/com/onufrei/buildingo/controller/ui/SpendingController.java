@@ -1,7 +1,7 @@
 package com.onufrei.buildingo.controller.ui;
 
 import com.onufrei.buildingo.model.Spending;
-import com.onufrei.buildingo.service.estimate.interfaces.EstimateService;
+import com.onufrei.buildingo.service.building.interfaces.BuildingService;
 import com.onufrei.buildingo.service.spending.interfaces.SpendingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,11 +28,11 @@ import java.time.LocalDateTime;
 public class SpendingController {
 
 	private final SpendingService spendingService;
-	private final EstimateService estimateService;
+	private final BuildingService buildingService;
 
-	public SpendingController(@Autowired SpendingService spendingService, @Autowired EstimateService estimateService) {
+	public SpendingController(@Autowired SpendingService spendingService, @Autowired BuildingService estimateService) {
 		this.spendingService = spendingService;
-		this.estimateService = estimateService;
+		this.buildingService = estimateService;
 	}
 
 	@GetMapping
@@ -51,7 +51,7 @@ public class SpendingController {
 	private String showAddSpending(Model model) {
 		model.addAttribute("spending", new Spending("", "", "", 0, .0f, null, null,
 				null, LocalDateTime.now(), LocalDateTime.now()));
-		model.addAttribute("estimates", estimateService.getMainInfo());
+		model.addAttribute("buildings", buildingService.getMainInfo());
 
 		return "spending/add-spending-page";
 	}
@@ -59,23 +59,23 @@ public class SpendingController {
 	@GetMapping("/edit/{id}")
 	private String showEditSpending(Model model, @PathVariable String id) {
 		model.addAttribute("spending", spendingService.findById(id));
-		model.addAttribute("estimates", estimateService.getMainInfo());
+		model.addAttribute("buildings", buildingService.getMainInfo());
 
 		return "spending/edit-spending-page";
 	}
 
 	@PostMapping("/add")
-	private String addSpending(Model model, @ModelAttribute Spending spending, @RequestParam("estimate_id") String estimateId) {
-		spending.setEstimate(estimateService.findById(estimateId));
+	private String addSpending(Model model, @ModelAttribute Spending spending, @RequestParam("building_id") String buildingId) {
+		spending.setBuilding(buildingService.findById(buildingId));
 		spendingService.add(spending);
 
 		return "redirect:/spendings";
 	}
 
 	@PostMapping("/edit/{id}")
-	private String updateSpending(Model model, @ModelAttribute Spending spending, @PathVariable String id, @RequestParam("estimate_id") String estimateId) {
+	private String updateSpending(Model model, @ModelAttribute Spending spending, @PathVariable String id, @RequestParam("building_id") String buildingId) {
 		spending.setId(id);
-		spending.setEstimate(estimateService.findById(estimateId));
+		spending.setBuilding(buildingService.findById(buildingId));
 		spendingService.update(spending);
 		return "redirect:/spendings";
 	}

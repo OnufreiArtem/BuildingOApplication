@@ -34,7 +34,7 @@
 				<th scope="col" class="text-capitalize">Description</th>
 				<th scope="col" class="text-capitalize">Count</th>
 				<th scope="col" class="text-capitalize">Price</th>
-				<th scope="col" class="text-capitalize">Estimate</th>
+				<th scope="col" class="text-capitalize">Building</th>
 				<th scope="col" class="text-capitalize">Request Date</th>
 				<th scope="col" class="text-capitalize">Satisfied Date</th>
 			</tr>
@@ -72,7 +72,7 @@
 				<td scope="row" th:text="${spending.description}"></td>
 				<td scope="row" th:text="${spending.count}"></td>
 				<td scope="row" th:text="${spending.price}"></td>
-				<td scope="row"><a th:href="${spending.estimate == null ? '#' : '/estimates/show/' + spending.estimate.id}" th:text="${spending.estimate == null ? 'Not Specified' : (spending.estimate.plot == null ? spending.estimate.id : spending.estimate.plot.address)}"></a></td>
+				<td scope="row"><a th:href="${spending.building == null ? '#' : '/buildings/show/' + spending.building.id}" th:text="${spending.building == null ? 'Not Specified' : (spending.building.plot == null ? spending.building.plan : spending.building.plot.address)}"></a></td>
 				<td scope="row" th:text="${spending.requestDate}"></td>
 				<td scope="row" th:text="${spending.satisfiedDate}"></td>
 			</tbody>

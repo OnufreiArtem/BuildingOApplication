@@ -41,9 +41,9 @@
 		</div>
 
 		<div class="mb-3 row">
-			<label for="estimate" class="form-label">Estimate:</label>
+			<label for="estimate" class="form-label">Building:</label>
 			<input id="estimate" class="form-control"
-				   th:value="${spending.estimate == null ? 'Not Specified' : (spending.estimate.plot == null ? spending.estimate.id : spending.estimate.plot.address)}"
+				   th:value="${spending.building == null ? 'Not Specified' : (spending.building == null ? spending.building.id : spending.building.plot.address)}"
 				   readonly>
 		</div>
 

@@ -26,6 +26,14 @@
 			<input id="scheduleEvent_description" maxlength="80" class="form-control" required type="text" th:field="*{description}"/>
 		</div>
 		<div class="mb-3 row">
+			<label for="scheduleEvent_building" class="form-label">Building:</label>
+			<select id="scheduleEvent_building" class="form-control" name="building_id">
+				<option value="non">Not Specified</option>
+				<option th:each="building : ${buildings}" th:value="${building.first}" th:text="${building.second}"
+						th:selected="${building.first == scheduleEvent.building?.id}"></option>
+			</select>
+		</div>
+		<div class="mb-3 row">
 			<label for="scheduleEvent_step" class="form-label">Building Step:</label>
 			<select id="scheduleEvent_step" class="form-control" name="step_id">
 				<option value="non">Not Specified</option>
@@ -49,16 +57,6 @@
 			<label for="scheduleEvent_end" class="form-label">Ending Date:</label>
 			<input id="scheduleEvent_end" class="form-control" required type="datetime-local" th:field="*{ending}"/>
 		</div>
-		<div class="mb-3 row">
-			<label for="scheduleEvent_schedule" class="form-label">Schedule:</label>
-			<select id="scheduleEvent_schedule" class="form-control" name="schedule_id">
-				<option value="non">Not Specified</option>
-				<option th:each="schedule : ${schedules}" th:value="${schedule.first}" th:text="${schedule.second}"
-						th:selected="${schedule.first == scheduleEvent.schedule?.targetBuilding?.plan}"></option>
-			</select>
-		</div>
-
-
 		<div class="mb-3 row">
 			<a class="btn btn-outline-secondary col-5" href="/schedule-events">Cancel</a>
 			<div class="col-2"></div>

@@ -22,9 +22,9 @@ data class Spending(
         var count: Int,
         @ApiModelProperty(notes="The price for unit.")
         var price: Float,
-        @ApiModelProperty(notes="The target estimate.")
+        @ApiModelProperty(notes="The target building.")
         @DBRef
-        var estimate: Estimate?,
+        var building: Building?,
         @ApiModelProperty(notes="The date when resource was requested.")
         @field:DateTimeFormat(pattern = "yyyy-MM-dd")
         var requestDate: LocalDate?,
