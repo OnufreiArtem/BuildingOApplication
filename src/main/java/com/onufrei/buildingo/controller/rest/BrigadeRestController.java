@@ -1,7 +1,10 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.BrigadeForm;
 import com.onufrei.buildingo.model.Brigade;
 import com.onufrei.buildingo.service.brigade.interfaces.BrigadeService;
+import com.onufrei.buildingo.service.brigadeSpecification.interfaces.BrigadeSpecificationService;
+import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +34,13 @@ import java.util.List;
 public class BrigadeRestController {
 
 	private final BrigadeService service;
+	private final EmployeeService employeeService;
+	private final BrigadeSpecificationService brigadeSpecificationService;
 
-	private BrigadeRestController(@Autowired BrigadeService service) {
+	private BrigadeRestController(@Autowired BrigadeService service, @Autowired EmployeeService employeeService, @Autowired BrigadeSpecificationService brigadeSpecificationService) {
 		this.service = service;
+		this.employeeService = employeeService;
+		this.brigadeSpecificationService = brigadeSpecificationService;
 	}
 
 	@ApiOperation(value = "Returns list of all brigades")
@@ -46,8 +53,8 @@ public class BrigadeRestController {
 	@PostMapping("/")
 	private Brigade addBrigade(
 			@ApiParam(name = "Brigade", value = "The json of brigade you want to add. Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Brigade brigade) {
-		return service.add(brigade);
+			@RequestBody BrigadeForm brigadeForm) {
+		return service.add(brigadeForm.toBrigadeEntity(employeeService, brigadeSpecificationService));
 	}
 
 	@ApiOperation(value = "Returns brigade of specified id")
@@ -63,8 +70,8 @@ public class BrigadeRestController {
 	private Brigade updateBrigade(
 			@ApiParam(name = "Brigade", value = "The json of brigade you want to update. "
 					+ "The id of brigade you pass must correspond to brigade's id you want to update")
-			@RequestBody Brigade brigade) {
-		return service.update(brigade);
+			@RequestBody BrigadeForm brigadeForm) {
+		return service.update(brigadeForm.toBrigadeEntity(employeeService, brigadeSpecificationService));
 	}
 
 	@ApiOperation(value = "Deletes the brigade with id you specify")

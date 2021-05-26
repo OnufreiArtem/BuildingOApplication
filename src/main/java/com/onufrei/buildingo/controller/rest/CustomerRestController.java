@@ -1,5 +1,6 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.CustomerForm;
 import com.onufrei.buildingo.model.Customer;
 import com.onufrei.buildingo.service.customer.interfaces.CustomerService;
 import io.swagger.annotations.ApiOperation;
@@ -47,8 +48,8 @@ public class CustomerRestController {
 	private Customer addCustomer(
 			@ApiParam(name = "Customer", value = "The json of customer you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Customer customer) {
-		return service.add(customer);
+			@RequestBody CustomerForm customerForm) {
+		return service.add(customerForm.toCustomerEntity());
 	}
 
 	@ApiOperation(value = "Returns customer of specified id")
@@ -64,8 +65,8 @@ public class CustomerRestController {
 	private Customer updateCustomer(
 			@ApiParam(name = "Customer", value = "The json of customer you want to update. "
 					+ "The id of customer you pass must correspond to customer's id you want to update")
-			@RequestBody Customer customer) {
-		return service.update(customer);
+			@RequestBody CustomerForm customerForm) {
+		return service.update(customerForm.toCustomerEntity());
 	}
 
 	@ApiOperation(value = "Deletes the customer with id you specify")

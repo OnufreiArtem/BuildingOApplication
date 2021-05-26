@@ -1,7 +1,10 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.BuildingForm;
 import com.onufrei.buildingo.model.Building;
 import com.onufrei.buildingo.service.building.interfaces.BuildingService;
+import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
+import com.onufrei.buildingo.service.plot.interfaces.PlotService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +34,13 @@ import java.util.List;
 public class BuildingRestController {
 
 	private final BuildingService service;
+	private final PlotService plotService;
+	private final EmployeeService employeeService;
 
-	private BuildingRestController(@Autowired BuildingService service) {
+	private BuildingRestController(@Autowired BuildingService service, @Autowired PlotService plotService, @Autowired EmployeeService employeeService) {
 		this.service = service;
+		this.plotService = plotService;
+		this.employeeService = employeeService;
 	}
 
 
@@ -48,8 +55,8 @@ public class BuildingRestController {
 	private Building addBuilding(
 			@ApiParam(name = "Building", value = "The json of building you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Building building) {
-		return service.add(building);
+			@RequestBody BuildingForm buildingForm) {
+		return service.add(buildingForm.toBuildingEntity(plotService, employeeService));
 	}
 
 	@ApiOperation(value = "Returns building of specified id")
@@ -65,8 +72,8 @@ public class BuildingRestController {
 	private Building updateBuilding(
 			@ApiParam(name = "Building", value = "The json of building you want to update. "
 					+ "The id of building you pass must correspond to building's id you want to update")
-			@RequestBody Building building) {
-		return service.update(building);
+			@RequestBody BuildingForm buildingForm) {
+		return service.update(buildingForm.toBuildingEntity(plotService, employeeService));
 	}
 
 	@ApiOperation(value = "Deletes the building with id you specify")

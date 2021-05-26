@@ -1,5 +1,6 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.EmployeeSpecificationForm;
 import com.onufrei.buildingo.model.EmployeeSpecification;
 import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSpecificationService;
 import io.swagger.annotations.ApiOperation;
@@ -47,8 +48,8 @@ public class EmployeeSpecificationRestController {
     private EmployeeSpecification addEmployeeSpecification(
             @ApiParam(name = "Employee specification", value = "The json of employee specification you want to add. "
                     + "Id, createdAt and modifiedAt dates generate automatically")
-            @RequestBody EmployeeSpecification employeeSpecification) {
-        return service.add(employeeSpecification);
+            @RequestBody EmployeeSpecificationForm employeeSpecificationForm) {
+        return service.add(employeeSpecificationForm.toEmployeeSpecificationEntity());
     }
 
     @ApiOperation(value = "Returns employee specification of specified id")
@@ -64,8 +65,8 @@ public class EmployeeSpecificationRestController {
     private EmployeeSpecification updateEmployeeSpecification(
             @ApiParam(name = "Employee specification", value = "The json of employee specification you want to update. "
                     + "The id of employee specification you pass must correspond to employee specification's id you want to update")
-            @RequestBody EmployeeSpecification employeeSpecification) {
-        return service.update(employeeSpecification);
+            @RequestBody EmployeeSpecificationForm employeeSpecificationForm) {
+        return service.update(employeeSpecificationForm.toEmployeeSpecificationEntity());
     }
 
     @ApiOperation(value = "Deletes the employee specification with id you specify")

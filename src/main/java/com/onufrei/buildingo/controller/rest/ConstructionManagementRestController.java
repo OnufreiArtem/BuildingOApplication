@@ -1,7 +1,9 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.ConstructionManagementForm;
 import com.onufrei.buildingo.model.ConstructionManagement;
 import com.onufrei.buildingo.service.constructionManagement.interfaces.ConstructionManagementService;
+import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +33,11 @@ import java.util.List;
 public class ConstructionManagementRestController {
 
 	private final ConstructionManagementService service;
+	private final EmployeeService employeeService;
 
-	private ConstructionManagementRestController(@Autowired ConstructionManagementService service) {
+	private ConstructionManagementRestController(@Autowired ConstructionManagementService service, @Autowired EmployeeService employeeService) {
 		this.service = service;
+		this.employeeService = employeeService;
 	}
 
 	@ApiOperation(value = "Returns list of all construction managements")
@@ -47,8 +51,8 @@ public class ConstructionManagementRestController {
 	private ConstructionManagement addConstructionManagement(
 			@ApiParam(name = "Construction management", value = "The json of construction management you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody ConstructionManagement spec) {
-		return service.add(spec);
+			@RequestBody ConstructionManagementForm managementForm) {
+		return service.add(managementForm.toManagementEntity(employeeService));
 	}
 
 	@ApiOperation(value = "Returns construction management of specified id")
@@ -64,8 +68,8 @@ public class ConstructionManagementRestController {
 	private ConstructionManagement updateConstructionManagement(
 			@ApiParam(name = "Construction management", value = "The json of construction management you want to update. "
 					+ "The id of construction management you pass must correspond to construction management's id you want to update")
-			@RequestBody ConstructionManagement spec) {
-		return service.update(spec);
+			@RequestBody ConstructionManagementForm managementForm) {
+		return service.update(managementForm.toManagementEntity(employeeService));
 	}
 
 	@ApiOperation(value = "Deletes the construction management with id you specify")

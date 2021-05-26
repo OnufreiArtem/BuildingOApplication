@@ -1,5 +1,6 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.BuildingStepForm;
 import com.onufrei.buildingo.model.BuildingStep;
 import com.onufrei.buildingo.service.buildingStep.interfaces.BuildingStepService;
 import io.swagger.annotations.ApiOperation;
@@ -47,8 +48,8 @@ public class BuildingStepRestController {
 	private BuildingStep addBuildingStep(
 			@ApiParam(name = "Building Step", value = "The json of brigade specification you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody BuildingStep buildingStep) {
-		return service.add(buildingStep);
+			@RequestBody BuildingStepForm buildingStepForm) {
+		return service.add(buildingStepForm.toBuildingStepEntity());
 	}
 
 	@ApiOperation(value = "Returns building step of specified id")
@@ -64,8 +65,8 @@ public class BuildingStepRestController {
 	private BuildingStep updateBuildingStep(
 			@ApiParam(name = "Brigade Step", value = "The json of building step you want to update. "
 					+ "The id of building step you pass must correspond to building step's id you want to update")
-			@RequestBody BuildingStep buildingStep) {
-		return service.update(buildingStep);
+			@RequestBody BuildingStepForm buildingStepForm) {
+		return service.update(buildingStepForm.toBuildingStepEntity());
 	}
 
 	@ApiOperation(value = "Deletes the building step with id you specify")

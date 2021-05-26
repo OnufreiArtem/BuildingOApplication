@@ -1,7 +1,9 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.MachineryForm;
 import com.onufrei.buildingo.model.Machinery;
 import com.onufrei.buildingo.service.machinery.interfaces.MachineryService;
+import com.onufrei.buildingo.service.machineryStorage.interfaces.MachineryStorageService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +33,11 @@ import java.util.List;
 public class MachineryRestController {
 
 	private final MachineryService service;
+	private final MachineryStorageService storageService;
 
-	private MachineryRestController(@Autowired MachineryService service) {
+	private MachineryRestController(@Autowired MachineryService service, @Autowired MachineryStorageService storageService) {
 		this.service = service;
+		this.storageService = storageService;
 	}
 
 	@ApiOperation(value = "Returns list of all machineries")
@@ -47,8 +51,8 @@ public class MachineryRestController {
 	private Machinery addMachinery(
 			@ApiParam(name = "Machinery", value = "The json of machinery you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Machinery machinery) {
-		return service.add(machinery);
+			@RequestBody MachineryForm machineryForm) {
+		return service.add(machineryForm.toMachineryEntity(storageService));
 	}
 
 	@ApiOperation(value = "Returns machinery of specified id")
@@ -64,8 +68,8 @@ public class MachineryRestController {
 	private Machinery updateMachinery(
 			@ApiParam(name = "Machinery", value = "The json of machinery you want to update. "
 					+ "The id of machinery you pass must correspond to machinery's id you want to update")
-			@RequestBody Machinery machinery) {
-		return service.update(machinery);
+			@RequestBody MachineryForm machineryForm) {
+		return service.update(machineryForm.toMachineryEntity(storageService));
 	}
 
 	@ApiOperation(value = "Deletes the machinery with id you specify")

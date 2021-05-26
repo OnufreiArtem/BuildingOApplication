@@ -1,6 +1,8 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.PlotForm;
 import com.onufrei.buildingo.model.Plot;
+import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import com.onufrei.buildingo.service.plot.interfaces.PlotService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,9 +33,11 @@ import java.util.List;
 public class PlotRestController {
 
 	private final PlotService service;
+	private final EmployeeService employeeService;
 
-	private PlotRestController(@Autowired PlotService service) {
+	private PlotRestController(@Autowired PlotService service, @Autowired EmployeeService employeeService) {
 		this.service = service;
+		this.employeeService = employeeService;
 	}
 
 	@ApiOperation(value = "Returns list of all plots")
@@ -47,8 +51,8 @@ public class PlotRestController {
 	private Plot addPlot(
 			@ApiParam(name = "Plot", value = "The json of plot you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Plot plot) {
-		return service.add(plot);
+			@RequestBody PlotForm plotForm) {
+		return service.add(plotForm.toPlotEntity(employeeService));
 	}
 
 	@ApiOperation(value = "Returns plot of specified id")
@@ -64,8 +68,8 @@ public class PlotRestController {
 	private Plot updatePlot(
 			@ApiParam(name = "Plot", value = "The json of plot you want to update. "
 					+ "The id of plot you pass must correspond to plot's id you want to update")
-			@RequestBody Plot plot) {
-		return service.update(plot);
+			@RequestBody PlotForm plotForm) {
+		return service.update(plotForm.toPlotEntity(employeeService));
 	}
 
 	@ApiOperation(value = "Deletes the plot with id you specify")
