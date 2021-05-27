@@ -17,7 +17,7 @@ class RequestForm(
         @ApiModelProperty(notes = "The title of the request.")
         var title: String,
         @ApiModelProperty(notes = "The description of the request.")
-        var description: String,
+        var description: String?,
         @ApiModelProperty(notes = "The type of the request.")
         var type: RequestType?,
         @ApiModelProperty(notes = "Indicates if request was implemented.")

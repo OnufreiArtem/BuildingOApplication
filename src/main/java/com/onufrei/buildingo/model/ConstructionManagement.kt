@@ -18,7 +18,7 @@ data class ConstructionManagement(
         @ApiModelProperty(notes="The name of the construction management.")
         var name: String,
         @ApiModelProperty(notes="The description of the construction management.")
-        var description: String = "",
+        var description: String?,
         @ApiModelProperty(notes="The address of the construction management.")
         var address: String,
         @ApiModelProperty(notes="The date and time when object was created.")

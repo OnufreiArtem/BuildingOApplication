@@ -14,7 +14,7 @@ data class SpendingForm(
         @ApiModelProperty(notes = "The name of the spending.")
         var name: String,
         @ApiModelProperty(notes = "The description of the spending.")
-        var description: String,
+        var description: String?,
         @ApiModelProperty(notes = "The number for units.")
         var count: Int,
         @ApiModelProperty(notes = "The price for unit.")

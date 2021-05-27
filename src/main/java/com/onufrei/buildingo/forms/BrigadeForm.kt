@@ -14,7 +14,7 @@ class BrigadeForm(
         @ApiModelProperty(notes = "The name of the brigade.")
         var name: String,
         @ApiModelProperty(notes = "The description of the brigade.")
-        var description: String = "",
+        var description: String?,
         @ApiModelProperty(notes = "The chief of the brigade.")
         var chief: String,
         @ApiModelProperty(notes = "The specification of brigade.")

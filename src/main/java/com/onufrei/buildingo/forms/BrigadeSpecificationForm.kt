@@ -11,7 +11,7 @@ class BrigadeSpecificationForm(
         @ApiModelProperty(notes = "The name of brigade specification.")
         var name: String,
         @ApiModelProperty(notes = "The description of brigade specification.")
-        var description: String = "",
+        var description: String?,
         @ApiModelProperty(notes = "The date and time when object was created.")
         var createdAt: LocalDateTime = LocalDateTime.now(),
         @ApiModelProperty(notes = "The date and time when object was lastly modified.")

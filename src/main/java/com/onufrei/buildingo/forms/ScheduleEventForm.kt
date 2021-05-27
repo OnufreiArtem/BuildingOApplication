@@ -15,7 +15,7 @@ class ScheduleEventForm(
         @ApiModelProperty(notes = "The name of the event.")
         var name: String,
         @ApiModelProperty(notes = "The description of the event.")
-        var description: String,
+        var description: String?,
         @ApiModelProperty(notes = "The target building.")
         var building: String,
         @ApiModelProperty(notes = "The building pace of the event.")
