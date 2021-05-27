@@ -37,6 +37,7 @@
 				<th scope="col" class="text-capitalize">Id</th>
 				<th scope="col" class="text-capitalize">name</th>
 				<th scope="col" class="text-capitalize">description</th>
+				<th scope="col" class="text-capitalize">type</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -70,6 +71,7 @@
 				<th scope="row" th:text="${spec.id}"></th>
 				<td th:text="${spec.name}"></td>
 				<td class="wrap-text" th:text="${spec.description}"></td>
+				<td class="wrap-text" th:text="${spec.type == null ? 'Not Specified' : spec.type}"></td>
 			</tbody>
 		</table>
 	</div>

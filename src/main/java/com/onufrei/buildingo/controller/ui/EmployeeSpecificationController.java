@@ -1,6 +1,8 @@
 package com.onufrei.buildingo.controller.ui;
 
+import com.onufrei.buildingo.model.CustomerType;
 import com.onufrei.buildingo.model.EmployeeSpecification;
+import com.onufrei.buildingo.model.EmployeeType;
 import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 
@@ -45,7 +48,7 @@ public class EmployeeSpecificationController {
 
 	@GetMapping("/add")
 	private String showAddEmployeeSpec(Model model) {
-		model.addAttribute("spec", new EmployeeSpecification("", "", "", LocalDateTime.now(), LocalDateTime.now()));
+		model.addAttribute("spec", new EmployeeSpecification("", "", "", null, LocalDateTime.now(), LocalDateTime.now()));
 
 		return "employeeSpecification/add-employee-spec-page";
 	}
@@ -58,24 +61,29 @@ public class EmployeeSpecificationController {
 	}
 
 	@PostMapping("/add")
-	private String addEmployeeSpec(Model model, @ModelAttribute EmployeeSpecification spec) {
-		EmployeeSpecification nSpec = new EmployeeSpecification(
-				"",
-				spec.getName(),
-				spec.getDescription(),
-				LocalDateTime.now(),
-				LocalDateTime.now()
-		);
-
-		employeeSpecificationService.add(nSpec);
+	private String addEmployeeSpec(Model model, @ModelAttribute EmployeeSpecification spec, @RequestParam("spec_type") String specType) {
+		EmployeeType type = null;
+		try {
+			type = EmployeeType.valueOf(specType);
+		} catch (IllegalArgumentException ignored) {
+		}
+		spec.setType(type);
+		employeeSpecificationService.add(spec);
 
 		return "redirect:/employee-specs";
 	}
 
 	@PostMapping("/edit/{id}")
-	private String updateEmployeeSpec(Model model, @ModelAttribute EmployeeSpecification spec, @PathVariable String id) {
+	private String updateEmployeeSpec(Model model, @ModelAttribute EmployeeSpecification spec, @RequestParam("spec_type") String specType, @PathVariable String id) {
 		spec.setId(id);
+		EmployeeType type = null;
+		try {
+			type = EmployeeType.valueOf(specType);
+		} catch (IllegalArgumentException ignored) {
+		}
+		spec.setType(type);
 		employeeSpecificationService.update(spec);
+
 		return "redirect:/employee-specs";
 	}
 

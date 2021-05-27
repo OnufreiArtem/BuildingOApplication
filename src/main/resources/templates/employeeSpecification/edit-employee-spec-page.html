@@ -17,10 +17,6 @@
 			<p class="fs-3 mb-5">Edit specification:</p>
 		</div>
 		<div class="mb-3 row">
-			<label for="id_field" class="col-sm-2 col-form-label">Id:</label>
-			<input type="text" class="form-control" id="id_field" th:value="${spec.id}" readonly>
-		</div>
-		<div class="mb-3 row">
 			<label for="employee_name" class="form-label">Name:</label>
 			<input id="employee_name" maxlength="30" class="form-control" required type="text" th:field="*{name}" th:value="${spec.name}"/>
 		</div>
@@ -29,7 +25,14 @@
 			<label for="employee_description" class="form-label">Description:</label>
 			<input id="employee_description" maxlength="80" class="form-control" type="text" th:field="*{description}" th:value="${spec.description}"/>
 		</div>
-
+		<div class="mb-3 row">
+			<label for="customer_type" class="form-label">Type:</label>
+			<select id="customer_type" class="form-control" name="spec_type" required>
+				<option value="non">Not Specified</option>
+				<option value="ENGINEER" th:selected="${spec.type == 'ENGINEER'}">Engineer</option>
+				<option value="GENERAL" th:selected="${spec.type == 'GENERAL'}">General</option>
+			</select>
+		</div>
 		<div class="mb-3 row">
 			<a class="btn btn-outline-secondary col-5" href="/employee-specs">Cancel</a>
 			<div class="col-2"></div>
