@@ -9,8 +9,6 @@ import java.util.*
 data class ConstructionManagementForm(
         @ApiModelProperty(notes = "The id of the construction management in UUID format.")
         var id: String = UUID.randomUUID().toString(),
-        @ApiModelProperty(notes = "The chief of the construction management.")
-        var chief: String,
         @ApiModelProperty(notes = "The name of the construction management.")
         var name: String,
         @ApiModelProperty(notes = "The description of the construction management.")
@@ -23,9 +21,8 @@ data class ConstructionManagementForm(
         var modifiedAt: LocalDateTime = LocalDateTime.now()
 
 ) {
-    fun toManagementEntity(employeeService: EmployeeService) = ConstructionManagement(
+    fun toManagementEntity() = ConstructionManagement(
             id,
-            employeeService.findById(chief),
             name,
             description,
             address,

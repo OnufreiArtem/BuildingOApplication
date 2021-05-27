@@ -31,12 +31,6 @@
 		</div>
 
 		<div class="mb-3 row">
-			<label for="chief" class="form-label">Chief:</label>
-			<input type="text" class="form-control" id="chief"
-				   th:value="${management.chief == null ? 'Not Specified' : management.chief.name + ' ' + management.chief.surname}" readonly>
-		</div>
-
-		<div class="mb-3 row">
 			<label for="management_address" class="form-label">Address:</label>
 			<input id="management_address" class="form-control" type="text" th:field="*{address}" th:value="${management.address}" readonly/>
 		</div>

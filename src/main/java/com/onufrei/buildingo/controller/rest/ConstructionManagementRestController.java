@@ -34,11 +34,9 @@ import java.util.List;
 public class ConstructionManagementRestController {
 
 	private final ConstructionManagementService service;
-	private final EmployeeService employeeService;
 
-	private ConstructionManagementRestController(@Autowired ConstructionManagementService service, @Autowired EmployeeService employeeService) {
+	private ConstructionManagementRestController(@Autowired ConstructionManagementService service) {
 		this.service = service;
-		this.employeeService = employeeService;
 	}
 
 	@ApiOperation(value = "Returns list of all construction managements")
@@ -53,7 +51,7 @@ public class ConstructionManagementRestController {
 			@ApiParam(name = "Construction management", value = "The json of construction management you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
 			@RequestBody ConstructionManagementForm managementForm) {
-		return service.add(managementForm.toManagementEntity(employeeService));
+		return service.add(managementForm.toManagementEntity());
 	}
 
 	@ApiOperation(value = "Returns construction management of specified id")
@@ -76,7 +74,7 @@ public class ConstructionManagementRestController {
 			@ApiParam(name = "Construction management", value = "The json of construction management you want to update. "
 					+ "The id of construction management you pass must correspond to construction management's id you want to update")
 			@RequestBody ConstructionManagementForm managementForm) {
-		return service.update(managementForm.toManagementEntity(employeeService));
+		return service.update(managementForm.toManagementEntity());
 	}
 
 	@ApiOperation(value = "Deletes the construction management with id you specify")
