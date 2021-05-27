@@ -5,6 +5,7 @@ import com.onufrei.buildingo.model.EmployeeSpecification;
 import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSpecificationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -58,6 +59,12 @@ public class EmployeeSpecificationRestController {
             @ApiParam(name = "Employee specification id", value = "The id of employee specification you want to get")
             @PathVariable String id) {
         return service.findById(id);
+    }
+
+    @ApiOperation(value = "Returns the id and names of all specifications")
+    @GetMapping("/names")
+    private List<Pair<String, String>> getListOfAllSpecificationNamesPairs() {
+        return service.getListOfSpecificationNames();
     }
 
     @ApiOperation(value = "Updates specified employee specification by customer you pass")

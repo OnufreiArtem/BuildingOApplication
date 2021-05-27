@@ -7,6 +7,7 @@ import com.onufrei.buildingo.service.brigadeSpecification.interfaces.BrigadeSpec
 import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -63,6 +64,12 @@ public class BrigadeRestController {
 			@ApiParam(name = "Brigade id", value = "The id of brigade you want to get")
 			@PathVariable String id) {
 		return service.findById(id);
+	}
+
+	@ApiOperation(value = "Returns brigades id and main info")
+	@GetMapping("/names")
+	private List<Pair<String, String>> getMainInfo() {
+		return service.getMainInfo();
 	}
 
 	@ApiOperation(value = "Updates specified brigade by brigade you pass")

@@ -5,6 +5,7 @@ import com.onufrei.buildingo.model.MachineryStorage;
 import com.onufrei.buildingo.service.machineryStorage.interfaces.MachineryStorageService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -58,6 +59,12 @@ public class MachineryStorageRestController {
 			@ApiParam(name = "Machinery storage id", value = "The id of machinery storage you want to get")
 			@PathVariable String id) {
 		return service.findById(id);
+	}
+
+	@ApiOperation(value = "Returns id and some info about all storages")
+	@GetMapping("/addresses")
+	private List<Pair<String, String>> getStorageMainInfo() {
+		return service.getMainInfo();
 	}
 
 	@ApiOperation(value = "Updates specified customer by machinery storage you pass")

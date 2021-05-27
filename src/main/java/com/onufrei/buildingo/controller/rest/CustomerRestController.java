@@ -5,6 +5,7 @@ import com.onufrei.buildingo.model.Customer;
 import com.onufrei.buildingo.service.customer.interfaces.CustomerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -67,6 +68,12 @@ public class CustomerRestController {
 					+ "The id of customer you pass must correspond to customer's id you want to update")
 			@RequestBody CustomerForm customerForm) {
 		return service.update(customerForm.toCustomerEntity());
+	}
+
+	@ApiOperation(value = "Returns all customers id and contacts")
+	@GetMapping("/contacts")
+	private List<Pair<String, String>> getBuildingsMainInfo() {
+		return service.getCustomerContactText();
 	}
 
 	@ApiOperation(value = "Deletes the customer with id you specify")

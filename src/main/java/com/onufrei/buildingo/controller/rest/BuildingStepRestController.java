@@ -5,6 +5,7 @@ import com.onufrei.buildingo.model.BuildingStep;
 import com.onufrei.buildingo.service.buildingStep.interfaces.BuildingStepService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -58,6 +59,12 @@ public class BuildingStepRestController {
 			@ApiParam(name = "Brigade Step id", value = "The id of building step you want to get")
 			@PathVariable String id) {
 		return service.findById(id);
+	}
+
+	@ApiOperation(value = "Returns all steps names")
+	@GetMapping("/names")
+	private List<Pair<String, String>> getAllStepNames() {
+		return service.allStepNames();
 	}
 
 	@ApiOperation(value = "Updates specified building step by building step you pass")

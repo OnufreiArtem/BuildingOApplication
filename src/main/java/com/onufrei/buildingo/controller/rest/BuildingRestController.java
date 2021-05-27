@@ -7,6 +7,7 @@ import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import com.onufrei.buildingo.service.plot.interfaces.PlotService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -74,6 +75,12 @@ public class BuildingRestController {
 					+ "The id of building you pass must correspond to building's id you want to update")
 			@RequestBody BuildingForm buildingForm) {
 		return service.update(buildingForm.toBuildingEntity(plotService, employeeService));
+	}
+
+	@ApiOperation(value = "Returns brigade id and specification name pairs")
+	@GetMapping("/addresses")
+	private List<Pair<String, String>> getBuildingsMainInfo() {
+		return service.getMainInfo();
 	}
 
 	@ApiOperation(value = "Deletes the building with id you specify")

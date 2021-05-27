@@ -6,6 +6,7 @@ import com.onufrei.buildingo.service.constructionManagement.interfaces.Construct
 import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,6 +62,12 @@ public class ConstructionManagementRestController {
 			@ApiParam(name = "Construction management id", value = "The id of construction management you want to get")
 			@PathVariable String id) {
 		return service.findById(id);
+	}
+
+	@ApiOperation(value = "Returns all managements addresses")
+	@GetMapping("/addresses")
+	private List<Pair<String, String>> getAllAddresses() {
+		return service.getAllAddresses();
 	}
 
 	@ApiOperation(value = "Updates specified construction management by construction management you pass")

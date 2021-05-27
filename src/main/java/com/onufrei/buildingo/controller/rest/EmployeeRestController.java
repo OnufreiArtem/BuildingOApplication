@@ -64,7 +64,7 @@ public class EmployeeRestController {
 		return service.findById(id);
 	}
 
-	@ApiOperation(value = "Returns pair if employee id and name")
+	@ApiOperation(value = "Returns pair of employee id and name")
 	@GetMapping("/names")
 	private List<Pair<String, String>> getEmployeeNames() {
 		return service.getIdNamePairs();

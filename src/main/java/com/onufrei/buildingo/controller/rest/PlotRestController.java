@@ -6,6 +6,7 @@ import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import com.onufrei.buildingo.service.plot.interfaces.PlotService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,6 +62,12 @@ public class PlotRestController {
 			@ApiParam(name = "Plot id", value = "The id of plot you want to get")
 			@PathVariable String id) {
 		return service.findById(id);
+	}
+
+	@ApiOperation(value = "Returns the id and addresses for all plots")
+	@GetMapping("/addresses")
+	private List<Pair<String, String>> getAllAddressesPairs() {
+		return service.getAddressList();
 	}
 
 	@ApiOperation(value = "Updates specified plot by plot you pass")
