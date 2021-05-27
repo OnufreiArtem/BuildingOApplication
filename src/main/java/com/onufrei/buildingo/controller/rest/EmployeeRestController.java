@@ -2,11 +2,13 @@ package com.onufrei.buildingo.controller.rest;
 
 import com.onufrei.buildingo.forms.EmployeeForm;
 import com.onufrei.buildingo.model.Employee;
+import com.onufrei.buildingo.service.brigade.interfaces.BrigadeService;
 import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSpecificationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import kotlin.Pair;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,10 +37,13 @@ public class EmployeeRestController {
 
 	private final EmployeeService service;
 	private final EmployeeSpecificationService specificationService;
+	private final BrigadeService brigadeService;
 
-	private EmployeeRestController(@Autowired EmployeeService service, @Autowired EmployeeSpecificationService specificationService) {
+	private EmployeeRestController(@Autowired EmployeeService service, @Autowired EmployeeSpecificationService specificationService,
+			@Autowired BrigadeService brigadeService) {
 		this.service = service;
 		this.specificationService = specificationService;
+		this.brigadeService = brigadeService;
 	}
 
 	@ApiOperation(value = "Returns list of all employees")
@@ -53,7 +58,7 @@ public class EmployeeRestController {
 			@ApiParam(name = "Employee", value = "The json of employee you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
 			@RequestBody EmployeeForm employeeForm) {
-		return service.add(employeeForm.toEmployeeEntity(specificationService));
+		return service.add(employeeForm.toEmployeeEntity(specificationService, brigadeService));
 	}
 
 	@ApiOperation(value = "Returns employee of specified id")
@@ -76,7 +81,14 @@ public class EmployeeRestController {
 			@ApiParam(name = "Employee", value = "The json of employee you want to update. "
 					+ "The id of employee you pass must correspond to employee's id you want to update")
 			@RequestBody EmployeeForm employeeForm) {
-		return service.update(employeeForm.toEmployeeEntity(specificationService));
+
+		Employee resultEmployee = employeeForm.toEmployeeEntity(specificationService, brigadeService);
+
+		if(resultEmployee != null && !isValidEmployee(resultEmployee)) {
+			resultEmployee.setBrigade(null);
+		}
+
+		return service.update(resultEmployee);
 	}
 
 	@ApiOperation(value = "Deletes the employee with id you specify")
@@ -85,5 +97,9 @@ public class EmployeeRestController {
 			@ApiParam(name = "Employee id", value = "The id of employee you want to delete")
 			@PathVariable String id) {
 		return service.delete(id);
+	}
+
+	private boolean isValidEmployee(@NotNull Employee employee) {
+		return employee.getBrigade() == null || employee.getBrigade().getChief() == null || !employee.getBrigade().getChief().getId().equals(employee.getId());
 	}
 }

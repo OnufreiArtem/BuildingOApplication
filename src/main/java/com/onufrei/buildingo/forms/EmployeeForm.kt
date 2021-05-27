@@ -1,6 +1,8 @@
 package com.onufrei.buildingo.forms
 
+import com.onufrei.buildingo.model.Brigade
 import com.onufrei.buildingo.model.Employee
+import com.onufrei.buildingo.service.brigade.interfaces.BrigadeService
 import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSpecificationService
 import io.swagger.annotations.ApiModelProperty
 import org.springframework.format.annotation.DateTimeFormat
@@ -18,6 +20,8 @@ class EmployeeForm(
         @field:DateTimeFormat(pattern = "yyyy-MM-dd")
         @ApiModelProperty(notes = "The date of birth of the employee.")
         var dateOfBirth: LocalDate?,
+        @ApiModelProperty(notes="The employee's brigade.")
+        var brigade: String = "",
         @ApiModelProperty(notes = "The salary of the employee.")
         var salary: Int = 0,
         @ApiModelProperty(notes = "The phone number of the employee.")
@@ -39,12 +43,13 @@ class EmployeeForm(
         @ApiModelProperty(notes = "The date and time when object was lastly modified.")
         var modifiedAt: LocalDateTime = LocalDateTime.now()
 ) {
-    fun toEmployeeEntity(employeeSpecificationService: EmployeeSpecificationService): Employee {
+    fun toEmployeeEntity(employeeSpecificationService: EmployeeSpecificationService, brigadeService: BrigadeService): Employee {
         return Employee(
                 id,
                 name,
                 surname,
                 dateOfBirth,
+                brigadeService.findById(brigade),
                 salary,
                 phoneNumber,
                 email,

@@ -1,6 +1,7 @@
 package com.onufrei.buildingo.controller.ui;
 
 import com.onufrei.buildingo.model.Brigade;
+import com.onufrei.buildingo.model.Employee;
 import com.onufrei.buildingo.service.brigade.interfaces.BrigadeService;
 import com.onufrei.buildingo.service.brigadeSpecification.interfaces.BrigadeSpecificationService;
 import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
@@ -84,7 +85,8 @@ public class BrigadeController {
 	private String updateBrigade(Model model, @ModelAttribute Brigade brigade, @RequestParam("brigade_spec_id") String brigadeSpecId,
 			@RequestParam("employee_id") String employeeId, @PathVariable String id) {
 		brigade.setId(id);
-		brigade.setChief(employeeService.findById(employeeId));
+		Employee employee = employeeService.findById(employeeId);
+		brigade.setChief(employee != null && employee.getBrigade() != null && employee.getBrigade().getId().equals(id) ? null : employee);
 		brigade.setSpecification(brigadeSpecificationService.findById(brigadeSpecId));
 		brigadeService.update(brigade);
 		return "redirect:/brigades";

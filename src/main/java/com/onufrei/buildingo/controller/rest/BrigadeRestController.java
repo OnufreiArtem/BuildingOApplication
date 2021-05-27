@@ -8,6 +8,7 @@ import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import kotlin.Pair;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +39,8 @@ public class BrigadeRestController {
 	private final EmployeeService employeeService;
 	private final BrigadeSpecificationService brigadeSpecificationService;
 
-	private BrigadeRestController(@Autowired BrigadeService service, @Autowired EmployeeService employeeService, @Autowired BrigadeSpecificationService brigadeSpecificationService) {
+	private BrigadeRestController(@Autowired BrigadeService service, @Autowired EmployeeService employeeService,
+			@Autowired BrigadeSpecificationService brigadeSpecificationService) {
 		this.service = service;
 		this.employeeService = employeeService;
 		this.brigadeSpecificationService = brigadeSpecificationService;
@@ -53,16 +55,13 @@ public class BrigadeRestController {
 	@ApiOperation(value = "Adds new brigade")
 	@PostMapping("/")
 	private Brigade addBrigade(
-			@ApiParam(name = "Brigade", value = "The json of brigade you want to add. Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody BrigadeForm brigadeForm) {
+			@ApiParam(name = "Brigade", value = "The json of brigade you want to add. Id, createdAt and modifiedAt dates generate automatically") @RequestBody BrigadeForm brigadeForm) {
 		return service.add(brigadeForm.toBrigadeEntity(employeeService, brigadeSpecificationService));
 	}
 
 	@ApiOperation(value = "Returns brigade of specified id")
 	@GetMapping("/{id}")
-	private Brigade getBrigadeById(
-			@ApiParam(name = "Brigade id", value = "The id of brigade you want to get")
-			@PathVariable String id) {
+	private Brigade getBrigadeById(@ApiParam(name = "Brigade id", value = "The id of brigade you want to get") @PathVariable String id) {
 		return service.findById(id);
 	}
 
@@ -74,18 +73,23 @@ public class BrigadeRestController {
 
 	@ApiOperation(value = "Updates specified brigade by brigade you pass")
 	@PutMapping("/")
-	private Brigade updateBrigade(
-			@ApiParam(name = "Brigade", value = "The json of brigade you want to update. "
-					+ "The id of brigade you pass must correspond to brigade's id you want to update")
-			@RequestBody BrigadeForm brigadeForm) {
-		return service.update(brigadeForm.toBrigadeEntity(employeeService, brigadeSpecificationService));
+	private Brigade updateBrigade(@ApiParam(name = "Brigade", value = "The json of brigade you want to update. "
+			+ "The id of brigade you pass must correspond to brigade's id you want to update") @RequestBody BrigadeForm brigadeForm) {
+		Brigade brigade = brigadeForm.toBrigadeEntity(employeeService, brigadeSpecificationService);
+		if(brigade != null && !isValidBrigade(brigade)) {
+			brigade.setChief(null);
+		}
+		return service.update(brigade);
 	}
 
 	@ApiOperation(value = "Deletes the brigade with id you specify")
 	@DeleteMapping("/{id}")
-	private Brigade deleteBrigade(
-			@ApiParam(name = "Brigade id", value = "The id of brigade you want to delete")
-			@PathVariable String id) {
+	private Brigade deleteBrigade(@ApiParam(name = "Brigade id", value = "The id of brigade you want to delete") @PathVariable String id) {
 		return service.delete(id);
 	}
+
+	private boolean isValidBrigade(@NotNull Brigade brigade) {
+		return brigade.getChief() == null || brigade.getChief().getBrigade() == null || !brigade.getChief().getBrigade().getId().equals(brigade.getId());
+	}
+
 }
