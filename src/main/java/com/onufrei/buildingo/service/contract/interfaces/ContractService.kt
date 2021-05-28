@@ -11,4 +11,5 @@ import com.onufrei.buildingo.service.CrudGenericService
  */
 
 interface ContractService : CrudGenericService<Contract> {
+    fun countPlotsInProgress() : Int
 }

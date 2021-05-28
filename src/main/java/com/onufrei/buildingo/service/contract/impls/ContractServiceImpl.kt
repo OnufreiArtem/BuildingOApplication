@@ -9,6 +9,8 @@ import java.util.*
 
 @Service
 class ContractServiceImpl(private val repo: ContractRepository) : ContractService {
+    override fun countPlotsInProgress(): Int = findAll().filter { !it.failed && !it.finished }.count()
+
     override fun findAll(): List<Contract> {
         return repo.findAll()
     }

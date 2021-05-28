@@ -16,6 +16,8 @@ class EmployeeServiceImpl(private val repo: EmployeeRepository) : EmployeeServic
         return pairList
     }
 
+    override fun countEmployees(): Int = findAll().size
+
     override fun findAll(): List<Employee> {
         return repo.findAll()
     }

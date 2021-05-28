@@ -14,6 +14,8 @@ class ConstructionManagementServiceImpl(private val repo: ConstructionManagement
         return findAll().map { Pair(it.id, it.address) }
     }
 
+    override fun countManagements(): Int = findAll().size
+
     override fun findAll(): List<ConstructionManagement> {
         return repo.findAll()
     }
