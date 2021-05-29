@@ -37,11 +37,11 @@
 		</div>
 
 		<div class="mb-3 row">
-			<label for="estimate" class="form-label">Estimate:</label>
-			<select id="estimate" class="form-control" name="estimate_id">
+			<label for="building" class="form-label">Building:</label>
+			<select id="building" class="form-control" name="building_id">
 				<option value="non">Not Specified</option>
-				<option th:each="estimate : ${estimates}" th:value="${estimate.first}" th:text="${estimate.second}"
-						th:selected="${estimate.first == spending.estimate?.id}"></option>
+				<option th:each="building : ${buildings}" th:value="${building.first}" th:text="${building.second}"
+						th:selected="${building.first == spending.building?.id}"></option>
 			</select>
 		</div>
 

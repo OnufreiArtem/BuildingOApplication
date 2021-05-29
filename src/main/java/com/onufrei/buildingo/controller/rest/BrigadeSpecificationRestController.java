@@ -1,12 +1,15 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.BrigadeSpecificationForm;
 import com.onufrei.buildingo.model.Brigade;
 import com.onufrei.buildingo.model.BrigadeSpecification;
 import com.onufrei.buildingo.service.brigade.interfaces.BrigadeService;
 import com.onufrei.buildingo.service.brigadeSpecification.interfaces.BrigadeSpecificationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +29,7 @@ import java.util.List;
  * @since 15.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/brigade-specs")
 @RestController
 public class BrigadeSpecificationRestController {
@@ -47,8 +51,8 @@ public class BrigadeSpecificationRestController {
 	private BrigadeSpecification addBrigadeSpecification(
 			@ApiParam(name = "Brigade Specification", value = "The json of brigade specification you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody BrigadeSpecification brigadeSpecification) {
-		return service.add(brigadeSpecification);
+			@RequestBody BrigadeSpecificationForm brigadeSpecificationForm) {
+		return service.add(brigadeSpecificationForm.toBrigadeSpecificationEntity());
 	}
 
 	@ApiOperation(value = "Returns brigade specification of specified id")
@@ -64,8 +68,14 @@ public class BrigadeSpecificationRestController {
 	private BrigadeSpecification updateBrigadeSpecification(
 			@ApiParam(name = "Brigade Specification", value = "The json of brigade specification you want to update. "
 					+ "The id of brigade specification you pass must correspond to brigade specification's id you want to update")
-			@RequestBody BrigadeSpecification brigadeSpecification) {
-		return service.update(brigadeSpecification);
+			@RequestBody BrigadeSpecificationForm brigadeSpecificationForm) {
+		return service.update(brigadeSpecificationForm.toBrigadeSpecificationEntity());
+	}
+
+	@ApiOperation(value = "Return pair of id and name of specification")
+	@GetMapping("/names")
+	private List<Pair<String, String>> getSpecificationsNameAndId() {
+		return service.getIdNamePairs();
 	}
 
 	@ApiOperation(value = "Deletes the brigade specification with id you specify")

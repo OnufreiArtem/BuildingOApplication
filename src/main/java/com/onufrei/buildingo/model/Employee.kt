@@ -20,6 +20,8 @@ data class Employee(
         @field:DateTimeFormat(pattern = "yyyy-MM-dd")
         @ApiModelProperty(notes="The date of birth of the employee.")
         var dateOfBirth: LocalDate?,
+        @ApiModelProperty(notes="The employee's brigade.")
+        var brigade: Brigade?,
         @ApiModelProperty(notes="The salary of the employee.")
         var salary: Int = 0,
         @ApiModelProperty(notes="The phone number of the employee.")

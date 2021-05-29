@@ -27,15 +27,6 @@
 		</div>
 
 		<div class="mb-3 row">
-			<label for="chief" class="form-label">Chief:</label>
-			<select id="chief" class="form-control" name="employee_id">
-				<option value="non">Not Specified</option>
-				<option th:each="empl : ${employees}" th:value="${empl.first}" th:text="${empl.second}"
-						th:selected="${management.chief?.id == empl.first}"></option>
-			</select>
-		</div>
-
-		<div class="mb-3 row">
 			<label for="management_address" class="form-label">Address:</label>
 			<input id="management_address" class="form-control" type="text" th:field="*{address}" th:value="${management.address}"/>
 		</div>

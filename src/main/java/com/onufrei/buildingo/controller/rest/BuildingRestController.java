@@ -1,10 +1,15 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.BuildingForm;
 import com.onufrei.buildingo.model.Building;
 import com.onufrei.buildingo.service.building.interfaces.BuildingService;
+import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
+import com.onufrei.buildingo.service.plot.interfaces.PlotService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,14 +29,19 @@ import java.util.List;
  * @since 15.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/buildings")
 @RestController
 public class BuildingRestController {
 
 	private final BuildingService service;
+	private final PlotService plotService;
+	private final EmployeeService employeeService;
 
-	private BuildingRestController(@Autowired BuildingService service) {
+	private BuildingRestController(@Autowired BuildingService service, @Autowired PlotService plotService, @Autowired EmployeeService employeeService) {
 		this.service = service;
+		this.plotService = plotService;
+		this.employeeService = employeeService;
 	}
 
 
@@ -46,8 +56,8 @@ public class BuildingRestController {
 	private Building addBuilding(
 			@ApiParam(name = "Building", value = "The json of building you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Building building) {
-		return service.add(building);
+			@RequestBody BuildingForm buildingForm) {
+		return service.add(buildingForm.toBuildingEntity(plotService, employeeService));
 	}
 
 	@ApiOperation(value = "Returns building of specified id")
@@ -63,8 +73,14 @@ public class BuildingRestController {
 	private Building updateBuilding(
 			@ApiParam(name = "Building", value = "The json of building you want to update. "
 					+ "The id of building you pass must correspond to building's id you want to update")
-			@RequestBody Building building) {
-		return service.update(building);
+			@RequestBody BuildingForm buildingForm) {
+		return service.update(buildingForm.toBuildingEntity(plotService, employeeService));
+	}
+
+	@ApiOperation(value = "Returns brigade id and specification name pairs")
+	@GetMapping("/addresses")
+	private List<Pair<String, String>> getBuildingsMainInfo() {
+		return service.getMainInfo();
 	}
 
 	@ApiOperation(value = "Deletes the building with id you specify")

@@ -29,6 +29,10 @@
 			<input id="employee_description" class="form-control" type="text" th:field="*{description}" th:value="${spec.description}" readonly/>
 		</div>
 		<div class="mb-3 row">
+			<label for="customer_type" class="form-label">Type:</label>
+			<input id="customer_type" class="form-control" required type="text" th:value="${spec.type == null ? 'Not Specified' : spec.type}" readonly/>
+		</div>
+		<div class="mb-3 row">
 			<label for="employee_created_at" class="form-label">Created at:</label>
 			<input id="employee_created_at" class="form-control" type="text" th:field="*{createdAt}" th:value="${spec.createdAt}" readonly/>
 		</div>

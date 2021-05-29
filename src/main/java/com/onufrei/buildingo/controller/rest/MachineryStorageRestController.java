@@ -1,10 +1,13 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.MachineryStorageForm;
 import com.onufrei.buildingo.model.MachineryStorage;
 import com.onufrei.buildingo.service.machineryStorage.interfaces.MachineryStorageService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +27,7 @@ import java.util.List;
  * @since 15.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/machinery-storages")
 @RestController
 public class MachineryStorageRestController {
@@ -45,8 +49,8 @@ public class MachineryStorageRestController {
 	private MachineryStorage addMachineryStorage(
 			@ApiParam(name = "Machinery storage", value = "The json of machinery storage you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody MachineryStorage machineryStorage) {
-		return service.add(machineryStorage);
+			@RequestBody MachineryStorageForm machineryStorageForm) {
+		return service.add(machineryStorageForm.toMachineryStorageEntity());
 	}
 
 	@ApiOperation(value = "Returns machinery storage of specified id")
@@ -57,13 +61,19 @@ public class MachineryStorageRestController {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Returns id and some info about all storages")
+	@GetMapping("/addresses")
+	private List<Pair<String, String>> getStorageMainInfo() {
+		return service.getMainInfo();
+	}
+
 	@ApiOperation(value = "Updates specified customer by machinery storage you pass")
 	@PutMapping("/")
 	private MachineryStorage updateMachineryStorage(
 			@ApiParam(name = "Machinery storage", value = "The json of machinery storage you want to update. "
 					+ "The id of machinery storage you pass must correspond to machinery storage's id you want to update")
-			@RequestBody MachineryStorage machineryStorage) {
-		return service.update(machineryStorage);
+			@RequestBody MachineryStorageForm machineryStorageForm) {
+		return service.update(machineryStorageForm.toMachineryStorageEntity());
 	}
 
 	@ApiOperation(value = "Deletes the machinery storage with id you specify")

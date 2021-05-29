@@ -1,10 +1,13 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.BuildingStepForm;
 import com.onufrei.buildingo.model.BuildingStep;
 import com.onufrei.buildingo.service.buildingStep.interfaces.BuildingStepService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +27,7 @@ import java.util.List;
  * @since 15.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/building-steps")
 @RestController
 public class BuildingStepRestController {
@@ -45,8 +49,8 @@ public class BuildingStepRestController {
 	private BuildingStep addBuildingStep(
 			@ApiParam(name = "Building Step", value = "The json of brigade specification you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody BuildingStep buildingStep) {
-		return service.add(buildingStep);
+			@RequestBody BuildingStepForm buildingStepForm) {
+		return service.add(buildingStepForm.toBuildingStepEntity());
 	}
 
 	@ApiOperation(value = "Returns building step of specified id")
@@ -57,13 +61,19 @@ public class BuildingStepRestController {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Returns all steps names")
+	@GetMapping("/names")
+	private List<Pair<String, String>> getAllStepNames() {
+		return service.allStepNames();
+	}
+
 	@ApiOperation(value = "Updates specified building step by building step you pass")
 	@PutMapping("/")
 	private BuildingStep updateBuildingStep(
 			@ApiParam(name = "Brigade Step", value = "The json of building step you want to update. "
 					+ "The id of building step you pass must correspond to building step's id you want to update")
-			@RequestBody BuildingStep buildingStep) {
-		return service.update(buildingStep);
+			@RequestBody BuildingStepForm buildingStepForm) {
+		return service.update(buildingStepForm.toBuildingStepEntity());
 	}
 
 	@ApiOperation(value = "Deletes the building step with id you specify")

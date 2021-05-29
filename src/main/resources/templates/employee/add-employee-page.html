@@ -30,6 +30,14 @@
 			<input id="employee_dob" class="form-control" required type="date" th:field="*{dateOfBirth}"/>
 		</div>
 		<div class="mb-3 row">
+			<label for="employee_brigade" class="form-label">Brigade:</label>
+			<select id="employee_brigade" class="form-control" name="brigade_id">
+				<option value="non">Not Specified</option>
+				<option th:each="brigade : ${brigades}" th:value="${brigade.first}" th:text="${brigade.second}"
+						th:selected="${brigade.first == employee.brigade?.id}"></option>
+			</select>
+		</div>
+		<div class="mb-3 row">
 			<label for="employee_salary" class="form-label">Salary:</label>
 			<input id="employee_salary" pattern="^[1-9]\d*$" class="form-control" required type="text" th:field="*{salary}"/>
 		</div>

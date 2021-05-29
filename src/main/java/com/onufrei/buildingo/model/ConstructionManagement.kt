@@ -12,13 +12,10 @@ data class ConstructionManagement(
         @ApiModelProperty(notes="The id of the construction management in UUID format.")
         @Id
         var id: String = UUID.randomUUID().toString(),
-        @ApiModelProperty(notes="The chief of the construction management.")
-        @DBRef
-        var chief: Employee?,
         @ApiModelProperty(notes="The name of the construction management.")
         var name: String,
         @ApiModelProperty(notes="The description of the construction management.")
-        var description: String = "",
+        var description: String?,
         @ApiModelProperty(notes="The address of the construction management.")
         var address: String,
         @ApiModelProperty(notes="The date and time when object was created.")

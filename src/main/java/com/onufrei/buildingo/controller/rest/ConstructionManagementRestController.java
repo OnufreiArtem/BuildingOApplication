@@ -1,10 +1,14 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.ConstructionManagementForm;
 import com.onufrei.buildingo.model.ConstructionManagement;
 import com.onufrei.buildingo.service.constructionManagement.interfaces.ConstructionManagementService;
+import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +28,7 @@ import java.util.List;
  * @since 15.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/managements")
 @RestController
 public class ConstructionManagementRestController {
@@ -45,8 +50,8 @@ public class ConstructionManagementRestController {
 	private ConstructionManagement addConstructionManagement(
 			@ApiParam(name = "Construction management", value = "The json of construction management you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody ConstructionManagement spec) {
-		return service.add(spec);
+			@RequestBody ConstructionManagementForm managementForm) {
+		return service.add(managementForm.toManagementEntity());
 	}
 
 	@ApiOperation(value = "Returns construction management of specified id")
@@ -57,13 +62,19 @@ public class ConstructionManagementRestController {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Returns all managements addresses")
+	@GetMapping("/addresses")
+	private List<Pair<String, String>> getAllAddresses() {
+		return service.getAllAddresses();
+	}
+
 	@ApiOperation(value = "Updates specified construction management by construction management you pass")
 	@PutMapping("/")
 	private ConstructionManagement updateConstructionManagement(
 			@ApiParam(name = "Construction management", value = "The json of construction management you want to update. "
 					+ "The id of construction management you pass must correspond to construction management's id you want to update")
-			@RequestBody ConstructionManagement spec) {
-		return service.update(spec);
+			@RequestBody ConstructionManagementForm managementForm) {
+		return service.update(managementForm.toManagementEntity());
 	}
 
 	@ApiOperation(value = "Deletes the construction management with id you specify")

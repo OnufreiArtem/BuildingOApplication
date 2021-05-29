@@ -1,10 +1,14 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.PlotForm;
 import com.onufrei.buildingo.model.Plot;
+import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import com.onufrei.buildingo.service.plot.interfaces.PlotService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,14 +28,17 @@ import java.util.List;
  * @since 15.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/plots")
 @RestController
 public class PlotRestController {
 
 	private final PlotService service;
+	private final EmployeeService employeeService;
 
-	private PlotRestController(@Autowired PlotService service) {
+	private PlotRestController(@Autowired PlotService service, @Autowired EmployeeService employeeService) {
 		this.service = service;
+		this.employeeService = employeeService;
 	}
 
 	@ApiOperation(value = "Returns list of all plots")
@@ -45,8 +52,8 @@ public class PlotRestController {
 	private Plot addPlot(
 			@ApiParam(name = "Plot", value = "The json of plot you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Plot plot) {
-		return service.add(plot);
+			@RequestBody PlotForm plotForm) {
+		return service.add(plotForm.toPlotEntity(employeeService));
 	}
 
 	@ApiOperation(value = "Returns plot of specified id")
@@ -57,13 +64,19 @@ public class PlotRestController {
 		return service.findById(id);
 	}
 
+	@ApiOperation(value = "Returns the id and addresses for all plots")
+	@GetMapping("/addresses")
+	private List<Pair<String, String>> getAllAddressesPairs() {
+		return service.getAddressList();
+	}
+
 	@ApiOperation(value = "Updates specified plot by plot you pass")
 	@PutMapping("/")
 	private Plot updatePlot(
 			@ApiParam(name = "Plot", value = "The json of plot you want to update. "
 					+ "The id of plot you pass must correspond to plot's id you want to update")
-			@RequestBody Plot plot) {
-		return service.update(plot);
+			@RequestBody PlotForm plotForm) {
+		return service.update(plotForm.toPlotEntity(employeeService));
 	}
 
 	@ApiOperation(value = "Deletes the plot with id you specify")

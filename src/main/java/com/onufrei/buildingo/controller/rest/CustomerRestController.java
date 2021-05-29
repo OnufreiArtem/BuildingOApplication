@@ -1,10 +1,13 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.CustomerForm;
 import com.onufrei.buildingo.model.Customer;
 import com.onufrei.buildingo.service.customer.interfaces.CustomerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +27,7 @@ import java.util.List;
  * @since 15.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/customers")
 @RestController
 public class CustomerRestController {
@@ -45,8 +49,8 @@ public class CustomerRestController {
 	private Customer addCustomer(
 			@ApiParam(name = "Customer", value = "The json of customer you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Customer customer) {
-		return service.add(customer);
+			@RequestBody CustomerForm customerForm) {
+		return service.add(customerForm.toCustomerEntity());
 	}
 
 	@ApiOperation(value = "Returns customer of specified id")
@@ -62,8 +66,14 @@ public class CustomerRestController {
 	private Customer updateCustomer(
 			@ApiParam(name = "Customer", value = "The json of customer you want to update. "
 					+ "The id of customer you pass must correspond to customer's id you want to update")
-			@RequestBody Customer customer) {
-		return service.update(customer);
+			@RequestBody CustomerForm customerForm) {
+		return service.update(customerForm.toCustomerEntity());
+	}
+
+	@ApiOperation(value = "Returns all customers id and contacts")
+	@GetMapping("/contacts")
+	private List<Pair<String, String>> getBuildingsMainInfo() {
+		return service.getCustomerContactText();
 	}
 
 	@ApiOperation(value = "Deletes the customer with id you specify")

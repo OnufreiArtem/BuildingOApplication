@@ -1,10 +1,13 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.EmployeeSpecificationForm;
 import com.onufrei.buildingo.model.EmployeeSpecification;
 import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSpecificationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +27,7 @@ import java.util.List;
  * @since 11.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/employee-specs")
 @RestController
 public class EmployeeSpecificationRestController {
@@ -45,8 +49,8 @@ public class EmployeeSpecificationRestController {
     private EmployeeSpecification addEmployeeSpecification(
             @ApiParam(name = "Employee specification", value = "The json of employee specification you want to add. "
                     + "Id, createdAt and modifiedAt dates generate automatically")
-            @RequestBody EmployeeSpecification employeeSpecification) {
-        return service.add(employeeSpecification);
+            @RequestBody EmployeeSpecificationForm employeeSpecificationForm) {
+        return service.add(employeeSpecificationForm.toEmployeeSpecificationEntity());
     }
 
     @ApiOperation(value = "Returns employee specification of specified id")
@@ -57,13 +61,19 @@ public class EmployeeSpecificationRestController {
         return service.findById(id);
     }
 
+    @ApiOperation(value = "Returns the id and names of all specifications")
+    @GetMapping("/names")
+    private List<Pair<String, String>> getListOfAllSpecificationNamesPairs() {
+        return service.getListOfSpecificationNames();
+    }
+
     @ApiOperation(value = "Updates specified employee specification by customer you pass")
     @PutMapping("/")
     private EmployeeSpecification updateEmployeeSpecification(
             @ApiParam(name = "Employee specification", value = "The json of employee specification you want to update. "
                     + "The id of employee specification you pass must correspond to employee specification's id you want to update")
-            @RequestBody EmployeeSpecification employeeSpecification) {
-        return service.update(employeeSpecification);
+            @RequestBody EmployeeSpecificationForm employeeSpecificationForm) {
+        return service.update(employeeSpecificationForm.toEmployeeSpecificationEntity());
     }
 
     @ApiOperation(value = "Deletes the employee specification with id you specify")

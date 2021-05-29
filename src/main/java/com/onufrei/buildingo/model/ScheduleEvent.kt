@@ -2,6 +2,7 @@ package com.onufrei.buildingo.model
 
 import io.swagger.annotations.ApiModelProperty
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
@@ -15,7 +16,10 @@ data class ScheduleEvent(
         @ApiModelProperty(notes="The name of the event.")
         var name: String,
         @ApiModelProperty(notes="The description of the event.")
-        var description: String,
+        var description: String?,
+        @ApiModelProperty(notes="The target building.")
+        @DBRef
+        var building: Building?,
         @ApiModelProperty(notes="The building pace of the event.")
         var buildingStep: BuildingStep?,
         @ApiModelProperty(notes="The brigades that participate in the event.")
@@ -26,8 +30,6 @@ data class ScheduleEvent(
         @ApiModelProperty(notes="The date and time when work ends.")
         @field:DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
         var ending: LocalDateTime?,
-        @ApiModelProperty(notes="The target schedule.")
-        var schedule: Schedule?,
         @ApiModelProperty(notes="The date and time when object was created.")
         var createdAt: LocalDateTime = LocalDateTime.now(),
         @ApiModelProperty(notes="The date and time when object was lastly modified.")

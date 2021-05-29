@@ -5,4 +5,5 @@ import com.onufrei.buildingo.service.CrudGenericService
 
 interface EmployeeService : CrudGenericService<Employee> {
     fun getIdNamePairs() : List<Pair<String, String>>
+    fun countEmployees() : Int
 }

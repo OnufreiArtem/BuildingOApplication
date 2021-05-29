@@ -38,6 +38,7 @@
 				<th scope="col" class="text-capitalize">Name</th>
 				<th scope="col" class="text-capitalize">Surname</th>
 				<th scope="col" class="text-capitalize">DoB</th>
+				<th scope="col" class="text-capitalize">Brigade</th>
 				<th scope="col" class="text-capitalize">Salary</th>
 				<th scope="col" class="text-capitalize">PhoneNumber</th>
 				<th scope="col" class="text-capitalize">Email</th>
@@ -79,6 +80,7 @@
 				<td scope="row" th:text="${employee.name}"></td>
 				<td scope="row" th:text="${employee.surname}"></td>
 				<td scope="row" th:text="${employee.dateOfBirth}"></td>
+				<td scope="row"><a th:href="${employee.brigade == null ? '#' : '/brigades/show/' + employee.brigade?.id }" th:text="${employee.brigade == null ? 'Not Specified' : employee.brigade.name}"></a></td>
 				<td scope="row" th:text="${employee.salary}"></td>
 				<td scope="row" th:text="${employee.phoneNumber}"></td>
 				<td scope="row" th:text="${employee.email}"></td>

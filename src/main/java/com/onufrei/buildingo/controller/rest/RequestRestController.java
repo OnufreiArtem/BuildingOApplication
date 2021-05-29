@@ -1,10 +1,15 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.RequestForm;
 import com.onufrei.buildingo.model.Request;
+import com.onufrei.buildingo.service.brigade.interfaces.BrigadeService;
+import com.onufrei.buildingo.service.building.interfaces.BuildingService;
+import com.onufrei.buildingo.service.constructionManagement.interfaces.ConstructionManagementService;
 import com.onufrei.buildingo.service.request.interfaces.RequestService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,14 +29,22 @@ import java.util.List;
  * @since 15.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/requests")
 @RestController
 public class RequestRestController {
 
 	private final RequestService service;
+	private final BuildingService buildingService;
+	private final BrigadeService brigadeService;
+	private final ConstructionManagementService managementService;
 
-	private RequestRestController(@Autowired RequestService service) {
+	private RequestRestController(@Autowired RequestService service, @Autowired BuildingService buildingService, @Autowired BrigadeService brigadeService,
+			@Autowired ConstructionManagementService managementService) {
 		this.service = service;
+		this.buildingService = buildingService;
+		this.brigadeService = brigadeService;
+		this.managementService = managementService;
 	}
 
 	@ApiOperation(value = "Returns list of all requests")
@@ -45,8 +58,8 @@ public class RequestRestController {
 	private Request addRequest(
 			@ApiParam(name = "Request", value = "The json of request you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Request request) {
-		return service.add(request);
+			@RequestBody RequestForm requestForm) {
+		return service.add(requestForm.toRequestEntity(buildingService, brigadeService, managementService));
 	}
 
 	@ApiOperation(value = "Returns request of specified id")
@@ -62,8 +75,8 @@ public class RequestRestController {
 	private Request updateRequest(
 			@ApiParam(name = "Request", value = "The json of request you want to update. "
 					+ "The id of request you pass must correspond to request's id you want to update")
-			@RequestBody Request request) {
-		return service.update(request);
+			@RequestBody RequestForm requestForm) {
+		return service.update(requestForm.toRequestEntity(buildingService, brigadeService, managementService));
 	}
 
 	@ApiOperation(value = "Deletes the request with id you specify")

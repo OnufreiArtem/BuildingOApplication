@@ -28,17 +28,14 @@ import java.time.LocalDateTime;
 public class ConstructionManagementController {
 
 	private final ConstructionManagementService service;
-	private final EmployeeService employeeService;
 
-	public ConstructionManagementController(@Autowired ConstructionManagementService service, @Autowired EmployeeService employeeService) {
+	public ConstructionManagementController(@Autowired ConstructionManagementService service) {
 		this.service = service;
-		this.employeeService = employeeService;
 	}
 
 	@GetMapping
 	private String showAllManagements(Model model) {
 		model.addAttribute("managements", service.findAll());
-		model.addAttribute("employees", employeeService.getIdNamePairs());
 
 		return "constructionManagement/managements-page";
 	}
@@ -46,15 +43,13 @@ public class ConstructionManagementController {
 	@GetMapping("/show/{id}")
 	private String showManagement(Model model, @PathVariable String id) {
 		model.addAttribute("management", service.findById(id));
-		model.addAttribute("employees", employeeService.getIdNamePairs());
 
 		return "constructionManagement/show-management-page";
 	}
 
 	@GetMapping("/add")
 	private String showAddManagement(Model model) {
-		model.addAttribute("management", new ConstructionManagement("", null, "", "", "", LocalDateTime.now(), LocalDateTime.now()));
-		model.addAttribute("employees", employeeService.getIdNamePairs());
+		model.addAttribute("management", new ConstructionManagement("", "", "", "",  LocalDateTime.now(), LocalDateTime.now()));
 
 		return "constructionManagement/add-management-page";
 	}
@@ -62,14 +57,13 @@ public class ConstructionManagementController {
 	@GetMapping("/edit/{id}")
 	private String showEditManagement(Model model, @PathVariable String id) {
 		model.addAttribute("management", service.findById(id));
-		model.addAttribute("employees", employeeService.getIdNamePairs());
 
 		return "constructionManagement/edit-management-page";
 	}
 
 	@PostMapping("/add")
-	private String addManagement(Model model, @ModelAttribute ConstructionManagement mng, @RequestParam("employee_id") String id) {
-		ConstructionManagement management = new ConstructionManagement("", employeeService.findById(id), mng.getName(), mng.getDescription(), mng.getAddress(),
+	private String addManagement(Model model, @ModelAttribute ConstructionManagement mng) {
+		ConstructionManagement management = new ConstructionManagement("", mng.getName(), mng.getDescription(), mng.getAddress(),
 				mng.getCreatedAt(), mng.getModifiedAt());
 
 		service.add(management);
@@ -78,9 +72,9 @@ public class ConstructionManagementController {
 	}
 
 	@PostMapping("/edit/{id}")
-	private String updateManagement(Model model, @ModelAttribute ConstructionManagement mng, @RequestParam("employee_id") String employeeId,
+	private String updateManagement(Model model, @ModelAttribute ConstructionManagement mng,
 			@PathVariable String id) {
-		ConstructionManagement management = new ConstructionManagement(id, employeeService.findById(employeeId), mng.getName(), mng.getDescription(),
+		ConstructionManagement management = new ConstructionManagement(id, mng.getName(), mng.getDescription(),
 				mng.getAddress(), mng.getCreatedAt(), mng.getModifiedAt());
 
 		service.update(management);

@@ -1,6 +1,8 @@
 package com.onufrei.buildingo.controller.ui;
 
+import com.onufrei.buildingo.model.Brigade;
 import com.onufrei.buildingo.model.Employee;
+import com.onufrei.buildingo.service.brigade.interfaces.BrigadeService;
 import com.onufrei.buildingo.service.employee.interfaces.EmployeeService;
 import com.onufrei.buildingo.service.employeeSpecification.interfaces.EmployeeSpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +31,13 @@ public class EmployeeController {
 
 	private final EmployeeService employeeService;
 	private final EmployeeSpecificationService specificationService;
+	private final BrigadeService brigadeService;
 
-	public EmployeeController(@Autowired EmployeeService employeeService, @Autowired EmployeeSpecificationService specificationService) {
+	public EmployeeController(@Autowired EmployeeService employeeService, @Autowired EmployeeSpecificationService specificationService,
+			@Autowired BrigadeService brigadeService) {
 		this.employeeService = employeeService;
 		this.specificationService = specificationService;
+		this.brigadeService = brigadeService;
 	}
 
 	@GetMapping
@@ -50,9 +55,10 @@ public class EmployeeController {
 
 	@GetMapping("/add")
 	private String showAddEmployee(Model model) {
-		model.addAttribute("employee", new Employee("", "", "", null, 0, "", "", null, null,
+		model.addAttribute("employee", new Employee("", "", "", null, null, 0, "", "", null, null,
 				false, null, LocalDateTime.now(), LocalDateTime.now()));
 		model.addAttribute("specifications", specificationService.getListOfSpecificationNames());
+		model.addAttribute("brigades", brigadeService.getMainInfo());
 
 		return "employee/add-employee-page";
 	}
@@ -61,22 +67,27 @@ public class EmployeeController {
 	private String showEditEmployee(Model model, @PathVariable String id) {
 		model.addAttribute("employee", employeeService.findById(id));
 		model.addAttribute("specifications", specificationService.getListOfSpecificationNames());
+		model.addAttribute("brigades", brigadeService.getMainInfo());
 
 		return "employee/edit-employee-page";
 	}
 
 	@PostMapping("/add")
-	private String addEmployee(Model model, @ModelAttribute Employee employee, @RequestParam("specification_id") String specificationId) {
+	private String addEmployee(Model model, @ModelAttribute Employee employee, @RequestParam("specification_id") String specificationId, @RequestParam("brigade_id") String brigadeId) {
 		employee.setSpecification(specificationService.findById(specificationId));
+		employee.setBrigade(brigadeService.findById(brigadeId));
 		employeeService.add(employee);
 
 		return "redirect:/employees";
 	}
 
 	@PostMapping("/edit/{id}")
-	private String updateEmployee(Model model, @ModelAttribute Employee employee, @PathVariable String id, @RequestParam("specification_id") String specificationId) {
+	private String updateEmployee(Model model, @ModelAttribute Employee employee, @PathVariable String id, @RequestParam("specification_id") String specificationId, @RequestParam("brigade_id") String brigadeId) {
 		employee.setId(id);
 		employee.setSpecification(specificationService.findById(specificationId));
+		Brigade brigade = brigadeService.findById(brigadeId);
+
+		employee.setBrigade(isValidBrigadeToEdit(brigade, id) ? brigade : null);
 
 		employeeService.update(employee);
 		return "redirect:/employees";
@@ -86,6 +97,10 @@ public class EmployeeController {
 	private String deleteEmployee(Model model, @PathVariable String id) {
 		employeeService.delete(id);
 		return "redirect:/employees";
+	}
+
+	private boolean isValidBrigadeToEdit(Brigade brigade, String employeeId) {
+		return brigade == null || brigade.getChief() == null || !brigade.getChief().getId().equals(employeeId);
 	}
 
 }

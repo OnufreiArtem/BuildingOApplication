@@ -16,7 +16,7 @@ data class Machinery(
         @ApiModelProperty(notes="The machinery number.")
         var number: String,
         @ApiModelProperty(notes="The description of the machinery.")
-        var description: String,
+        var description: String?,
         @ApiModelProperty(notes="The information about ways to use this machinery.")
         var usage: String,
         @ApiModelProperty(notes="The year when the machinery was crafted.")

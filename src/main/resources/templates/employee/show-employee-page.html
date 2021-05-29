@@ -33,6 +33,12 @@
 			<input id="employee_dob" class="form-control" required type="date" th:field="*{dateOfBirth}" readonly/>
 		</div>
 		<div class="mb-3 row">
+			<label for="brigade" class="form-label">Brigade:</label>
+			<input type="text" class="form-control" id="brigade"
+				   th:value="${employee.brigade == null ? 'Not Specified' : employee.brigade?.name}"
+				   readonly>
+		</div>
+		<div class="mb-3 row">
 			<label for="employee_salary" class="form-label">Salary:</label>
 			<input id="employee_salary" class="form-control" required type="number" th:field="*{salary}" readonly/>
 		</div>

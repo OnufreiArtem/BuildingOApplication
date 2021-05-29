@@ -1,10 +1,15 @@
 package com.onufrei.buildingo.controller.rest;
 
+import com.onufrei.buildingo.forms.ContractForm;
 import com.onufrei.buildingo.model.Contract;
+import com.onufrei.buildingo.service.constructionManagement.interfaces.ConstructionManagementService;
 import com.onufrei.buildingo.service.contract.interfaces.ContractService;
+import com.onufrei.buildingo.service.customer.interfaces.CustomerService;
+import com.onufrei.buildingo.service.plot.interfaces.PlotService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,14 +29,22 @@ import java.util.List;
  * @since 15.05.2021
  */
 
+@CrossOrigin
 @RequestMapping("api/v1/contracts")
 @RestController
 public class ContractRestController {
 
 	private final ContractService service;
+	private final CustomerService customerService;
+			private final ConstructionManagementService managementService;
+	private final PlotService plotService;
 
-	private ContractRestController(@Autowired ContractService service) {
+	private ContractRestController(@Autowired ContractService service, @Autowired CustomerService customerService, @Autowired ConstructionManagementService managementService,
+			@Autowired PlotService plotService) {
 		this.service = service;
+		this.customerService = customerService;
+		this.managementService = managementService;
+		this.plotService = plotService;
 	}
 
 	@ApiOperation(value = "Returns list of all contract")
@@ -45,8 +58,8 @@ public class ContractRestController {
 	private Contract addContract(
 			@ApiParam(name = "Contract", value = "The json of contract you want to add. "
 					+ "Id, createdAt and modifiedAt dates generate automatically")
-			@RequestBody Contract contract) {
-		return service.add(contract);
+			@RequestBody ContractForm contractForm) {
+		return service.add(contractForm.toContractEntity(customerService, managementService, plotService));
 	}
 
 	@ApiOperation(value = "Returns contract of specified id")
@@ -62,8 +75,8 @@ public class ContractRestController {
 	private Contract updateContract(
 			@ApiParam(name = "Contract", value = "The json of contract you want to update. "
 					+ "The id of contract you pass must correspond to contract's id you want to update")
-			@RequestBody Contract contract) {
-		return service.update(contract);
+			@RequestBody ContractForm contractForm) {
+		return service.update(contractForm.toContractEntity(customerService, managementService, plotService));
 	}
 
 	@ApiOperation(value = "Deletes the contract with id you specify")
