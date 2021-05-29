@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.stream.Collectors
 import java.util.stream.Stream
+import kotlin.streams.toList
 
 
 /** Represents object of SpecialController
@@ -35,11 +36,11 @@ class SpecialController(
 
     data class Numbers(
             @ApiModelProperty(notes = "Number of employees.")
-            val employeeNumber : Int,
+            val employeeNumber: Int,
             @ApiModelProperty(notes = "Number of construction managements")
-            val managementNumber : Int,
+            val managementNumber: Int,
             @ApiModelProperty(notes = "Number of contracts that are still not finished.")
-            val contractsInProgress : Int,
+            val contractsInProgress: Int,
     )
 
     @ApiOperation(value = "Returns customer of specified id")
@@ -53,13 +54,20 @@ class SpecialController(
         return employeeService.findAll().filter { brigades.contains(it.brigade) }.filter { it.specification?.type == EmployeeType.ENGINEER }
     }
 
+    data class ManagementEarnings(
+            @ApiModelProperty(notes = "Construction management")
+            val management: ConstructionManagement?,
+            @ApiModelProperty(notes = "Earnings")
+            val earning: Int
+    )
+
     @ApiOperation(value = "Returns earnings from every management")
     @GetMapping("/managements-earnings")
-    private fun getManagementsEarnings(): Stream<Pair<ConstructionManagement?, Int>>? {
+    private fun getManagementsEarnings(): List<ManagementEarnings> {
 
         return contractService.findAll().filter { it.finished && !it.failed && it.constructionManagement != null }.stream()
                 .collect(Collectors.groupingBy({ it.constructionManagement }, Collectors.summingInt { it.price })).entries.stream().filter { it.key != null }
-                .map { Pair(it.key, it.value) }
+                .map { ManagementEarnings(it.key, it.value) }.toList()
 
     }
 
